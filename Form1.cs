@@ -4,66 +4,44 @@ namespace SpotifyWindowsForm
 {
     public partial class Form1 : Form
     {
-        private IWavePlayer waveOut = new WaveOutEvent(); // Handles audio output  
-        private AudioFileReader audioFileReader; // Reads and decodes MP3  
+        private WaveOutEvent outputDevice;
+        private AudioFileReader audioFile;
         public Form1()
         {
             InitializeComponent();
         }
         private void btnPlay_Click(object sender, EventArgs e)
         {
-            string filePath = @"Assets\music\sample-1.mp3";
-            if (!File.Exists(filePath))
+            if (outputDevice == null)
             {
-                MessageBox.Show("File not found!");
-                return;
+                outputDevice = new WaveOutEvent();
+                outputDevice.PlaybackStopped += OnPlaybackStopped;
             }
-
-            try
+            if (audioFile == null)
             {
-                // Initialize audio components if not already running  
-                if (waveOut == null)
-                {
-                    waveOut = new WaveOutEvent(); // Uses Windows Multimedia APIs  
-                    audioFileReader = new AudioFileReader(filePath); // Decodes MP3 to PCM  
-                    waveOut.Init(audioFileReader); // Link reader to output  
-                }
-
-                waveOut.Play(); // Start playback  
+                audioFile = new AudioFileReader(@"Assets\music\sample-1.mp3");
+                outputDevice.Init(audioFile);
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error playing file: {ex.Message}");
-                Cleanup(); // Release resources on error  
-            }
+            outputDevice.Play();
         }
 
         // Pause Button Click Event  
         private void btnPause_Click(object sender, EventArgs e)
         {
-            waveOut?.Pause();
+            outputDevice?.Stop();
         }
 
         // Stop Button Click Event  
         private void btnStop_Click(object sender, EventArgs e)
         {
-            waveOut?.Stop();
-            Cleanup(); // Release resources  
+            outputDevice?.Stop(); 
         }
-
-        // Cleanup to prevent memory leaks  
-        private void Cleanup()
+        private void OnPlaybackStopped(object sender, StoppedEventArgs args)
         {
-            audioFileReader?.Dispose();
-            waveOut?.Dispose();
-            audioFileReader = null;
-            waveOut = null;
-        }
-
-        // Form Closing: Ensure cleanup  
-        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            Cleanup();
+            outputDevice.Dispose();
+            outputDevice = null;
+            audioFile.Dispose();
+            audioFile = null;
         }
     }
 }

@@ -41,18 +41,5 @@ namespace SpotifyWindowsForm.Models
             string gotteninfo = "hoi";
             return gotteninfo;
         }
-        class Program
-        {
-            static void Main(string[] args)
-            {
-                Song player = new Song();
-                player.Play(@"Assets\music\sample-1.mp3");
-
-                Console.WriteLine("Playing MP3 file...");
-                Console.ReadLine();
-
-                player.Stop();
-            }
-        }
     }
 }

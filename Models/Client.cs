@@ -1,0 +1,23 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace SpotifyWindowsForm.Models
+{
+    public class Client
+    {
+        public string AppName { get; set; }
+
+        public Client()
+        {
+            AppName = "Spotify Windows Form";
+        }
+
+        public void Start()
+        {
+            
+        }
+    }
+}

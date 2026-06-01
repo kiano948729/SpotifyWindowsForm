@@ -1,19 +1,19 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using NAudio.Wave;
-using SpotifyWindowsForm.Models;
-
-namespace SpotifyWindowsForm
+namespace SpotifyWindowsForm.Models
 {
-    public partial class Form1 : Form
+    internal class Musicplayer
     {
         private WaveOutEvent outputDevice;
         private AudioFileReader audioFile;
-        public Form1()
+        public void Play(Song Song)
         {
-            InitializeComponent();
-        }
-        private void btnPlay_Click(object sender, EventArgs e)
-        {
-        
+
+
             if (outputDevice == null)
             {
                 outputDevice = new WaveOutEvent();
@@ -21,32 +21,33 @@ namespace SpotifyWindowsForm
             }
             if (audioFile == null)
             {
-                audioFile = new AudioFileReader(@"Assets\music\sample-1.mp3");
+                audioFile = new AudioFileReader(Song.FilePath);
                 outputDevice.Init(audioFile);
             }
-            outputDevice.Play();
+        outputDevice.Play();
         }
 
         // Pause Button Click Event  
         private void btnPause_Click(object sender, EventArgs e)
         {
-            outputDevice?.Stop();
+            // todo
         }
 
         // Stop Button Click Event  
-        private void btnStop_Click(object sender, EventArgs e)
+        private void Stop(object sender, EventArgs e)
         {
-            outputDevice?.Stop(); 
+            outputDevice?.Stop();
         }
-        private void btnSkip_Click(object sender, EventArgs e)
+        private void Restart(object sender, EventArgs e)
         {
-            audioFile.Position = 0;
+           audioFile.Position = 0;
+           // was working in forms, moved to player.
         }
         private void OnPlaybackStopped(object sender, StoppedEventArgs args)
         {
-            outputDevice.Dispose();
+            outputDevice?.Dispose();
             outputDevice = null;
-            audioFile.Dispose();
+            audioFile?.Dispose();
             audioFile = null;
         }
     }

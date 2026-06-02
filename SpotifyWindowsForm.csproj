@@ -22,5 +22,19 @@
 	    <LastGenOutput>Resources.Designer.cs</LastGenOutput>
 	  </EmbeddedResource>
 	</ItemGroup>
+	
+	<ItemGroup>
+		<Folder Include="Assets\music\" />
+	</ItemGroup>
+	
+	<ItemGroup>
+		<PackageReference Include="NAudio" Version="2.3.0" />
+	</ItemGroup>
+	
+	<ItemGroup>
+		<None Update="Assets\music\sample-1.mp3">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
 
 </Project>

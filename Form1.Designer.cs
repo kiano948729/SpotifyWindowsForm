@@ -75,6 +75,7 @@
             button3.TabIndex = 2;
             button3.Text = "Skip";
             button3.UseVisualStyleBackColor = true;
+            button3.Click += btnSkip_Click;
             // 
             // button4
             // 

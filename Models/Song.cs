@@ -6,40 +6,24 @@ using System.Text;
 
 namespace SpotifyWindowsForm.Models
 {
-    internal class Song
+    public class Song
     {
-        private WaveOutEvent outputDevice;
-        private AudioFileReader audioFile;
+
+        public string Title { get; set; }
+        public string Artist { get; set; }
+        public string FilePath {  get; set; }
+        public string ganre { get; set; }
 
         /* title,ganre, artist, timestamp
          * song heeft dalijk een tijdsduur, naam en artiest.
          * play 
          */
-        public void Play(string FilePath)
+        public Song(string title, string artist, string ganre, string filepath)
         {
-            outputDevice = new WaveOutEvent();
-            audioFile = new AudioFileReader(FilePath);
-            outputDevice.Init(audioFile);
-            outputDevice.Play();
-        }
-        public void Pause()
-        {
-            
-        }
-        // stop and pause should probally both use a timestamp to mark where you left off,
-        // though stop might also close the playlist, and pause just keeps you on the current song?
-        public void Stop()
-        {
-            outputDevice.Stop();
-        }
-        public void Skip()
-        {
-            // uitwerken op basis van playlist? as in, this is song #1, skip to next song in list.
-        }
-        public string Getinfo()
-        {
-            string gotteninfo = "hoi";
-            return gotteninfo;
+            Title = title;
+            Artist = artist;
+            this.ganre = ganre;
+            this.FilePath = filepath;
         }
     }
 }

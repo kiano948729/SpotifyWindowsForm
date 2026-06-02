@@ -1,53 +1,39 @@
 using NAudio.Wave;
 using SpotifyWindowsForm.Models;
+using System.Numerics;
 
 namespace SpotifyWindowsForm
 {
     public partial class Form1 : Form
     {
-        private WaveOutEvent outputDevice;
-        private AudioFileReader audioFile;
+        private Musicplayer musicplayer;
+        private Song currentSong;
         public Form1()
         {
             InitializeComponent();
+            // hardcoded 1ste nummer voor functie testen
+            currentSong = new Song("sample-1","soundgenerator","sounds",@"assets/music/sample-1.mp3");
+            musicplayer = new Musicplayer();
         }
         private void btnPlay_Click(object sender, EventArgs e)
         {
-        
-            if (outputDevice == null)
-            {
-                outputDevice = new WaveOutEvent();
-                outputDevice.PlaybackStopped += OnPlaybackStopped;
-            }
-            if (audioFile == null)
-            {
-                audioFile = new AudioFileReader(@"Assets\music\sample-1.mp3");
-                outputDevice.Init(audioFile);
-            }
-            outputDevice.Play();
+            musicplayer.Play(currentSong);
         }
 
         // Pause Button Click Event  
         private void btnPause_Click(object sender, EventArgs e)
         {
-            outputDevice?.Stop();
+            musicplayer.Pause();
         }
 
         // Stop Button Click Event  
         private void btnStop_Click(object sender, EventArgs e)
         {
-            outputDevice?.Stop(); 
+            musicplayer.Stop();
         }
         private void btnSkip_Click(object sender, EventArgs e)
         {
-            audioFile.Position = 0;
-        }
-        private void OnPlaybackStopped(object sender, StoppedEventArgs args)
-        {
-            outputDevice.Dispose();
-            outputDevice = null;
-            audioFile.Dispose();
-            audioFile = null;
+            musicplayer.Restart();
         }
     }
 }

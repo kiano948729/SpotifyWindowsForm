@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NAudio.SoundFont;
 using NAudio.Wave;
 namespace SpotifyWindowsForm.Models
 {
-    internal class Musicplayer
+    public class Musicplayer
     {
         private WaveOutEvent outputDevice;
         private AudioFileReader audioFile;
@@ -28,17 +29,25 @@ namespace SpotifyWindowsForm.Models
         }
 
         // Pause Button Click Event  
-        private void btnPause_Click(object sender, EventArgs e)
+        public void Pause()
         {
-            // todo
+            if(outputDevice == null)
+            {
+                Console.WriteLine("geen nummer geselecteerd");
+            }
+            else
+            {
+                outputDevice.Pause();
+            }
+            
         }
 
         // Stop Button Click Event  
-        private void Stop(object sender, EventArgs e)
+        public void Stop()
         {
             outputDevice?.Stop();
         }
-        private void Restart(object sender, EventArgs e)
+        public void Restart()
         {
            audioFile.Position = 0;
            // was working in forms, moved to player.

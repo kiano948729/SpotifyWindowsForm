@@ -4,7 +4,13 @@ using System.Text;
 
 namespace SpotifyWindowsForm.Models
 {
-    internal class Playlist
+    public class Playlist
     {
+        public string Name { get; set; }
+
+        public Playlist(string name)
+        {
+            Name = name;
+        }
     }
 }

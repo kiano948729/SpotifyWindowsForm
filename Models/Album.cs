@@ -7,31 +7,53 @@ namespace SpotifyWindowsForm.Models
     public class Album
     {
         public string Name { get; set; }
-        public int TotalSongs { get; set; }
+        public string Description { get; set; }
+        public List<Song> Songs { get; set; }
+        private int currentSongIndex = 0;
+
+        public Album(string name, string description, List<Song> songs)
+        {
+            Name = name;
+            Description = description;
+            Songs = songs;
+        }
+        public Album GetInfo(Album album)
+        {
+            return album;
+        }     
+                
+        public void AddSong(Song song)
+        {
+            if (song != null)
+            {
+                Songs.Add(song);
+            }
+            else
+            {
+                Console.WriteLine("song not found");
+            }
+        }
+        public void RemoveSong(Song song)
+        {
+            if (song != null)
+            {
+                Songs.Remove(song);
+            }
+            else
+            { 
+                Console.WriteLine("could not remove song"); 
+            }
+        }
+        public void PlayAlbum(Musicplayer player)
+
+        {
+
+            if (Songs.Count == 0 || player == null) return;
 
 
-        public Album(string name)
-        {
-            Name= name;
-        }
-        public void Getinfo()
-        {
-            console.WriteLine(Name)
-        }
-        public void Updateinfo() 
-        { 
-        
-        }
-        public void Deleteinfo()
-        {
+            currentSongIndex = 0;
 
-        }
-        public void Addsong()
-        {
-
-        }
-        public void Removesong()
-        {
+            player.Play(Songs[currentSongIndex]);
 
         }
     }

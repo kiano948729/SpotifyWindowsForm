@@ -1,70 +1,61 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using SpotifyWindowsForm.Models;
 
 namespace SpotifyWindowsForm
 {
     public partial class MainMenuForm : Form
     {
+        private Playlist playlist;
+        private Musicplayer player;
+
         public MainMenuForm()
         {
             InitializeComponent();
+
+            player = new Musicplayer();
+            playlist = new Playlist("Test playlist");
+
+            SeedTestData();
         }
 
-        private void homeButton_Click(object sender, EventArgs e)
+        private void SeedTestData()
         {
-
-        }
-
-        private void playlistButton_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void friendsButton_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void playlistCard1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void playlistCard2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void playlistLabel_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void titleLabel_Click(object sender, EventArgs e)
-        {
+            playlist.AddSong(new Song("Song 1", "Artist 1", "Pop", "Assets/music/rickroll.mp3"));
+            playlist.AddSong(new Song("Song 2", "Artist 1", "Pop", "Assets/music/oof.mp3"));
 
         }
 
         private void playButton_Click(object sender, EventArgs e)
         {
-
+            playlist.PlayPlaylist(player);
         }
 
         private void pauseButton_Click(object sender, EventArgs e)
         {
-
+            player.Pause();
         }
 
         private void stopButton_Click(object sender, EventArgs e)
         {
+            player.Stop();
+        }
 
+        private void skipButton_Click(object sender, EventArgs e)
+        {
+            playlist.SkipSong(player);
+        }
+
+        private void homeButton_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void playlistButton_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void friendsButton_Click(object sender, EventArgs e)
+        {
         }
     }
 }

@@ -24,14 +24,16 @@
 	</ItemGroup>
 	
 	<ItemGroup>
-		<Folder Include="Assets\music\" />
-	</ItemGroup>
-	
-	<ItemGroup>
 		<PackageReference Include="NAudio" Version="2.3.0" />
 	</ItemGroup>
 	
 	<ItemGroup>
+		<None Update="Assets\music\oof.mp3">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="Assets\music\rickroll.MP3">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
 		<None Update="Assets\music\sample-1.mp3">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>

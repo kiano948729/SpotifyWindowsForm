@@ -8,7 +8,7 @@ namespace SpotifyWindowsForm
     {
         private Playlist playlist;
         private Musicplayer player;
-
+        private Artist artist;
         public MainMenuForm()
         {
             InitializeComponent();
@@ -21,9 +21,16 @@ namespace SpotifyWindowsForm
 
         private void SeedTestData()
         {
-            playlist.AddSong(new Song("Song 1", "Artist 1", "Pop", "Assets/music/rickroll.mp3"));
-            playlist.AddSong(new Song("Song 2", "Artist 1", "Pop", "Assets/music/oof.mp3"));
+            Song song1 = new Song("Song 1", "Artist 1", "Pop", "Assets/music/rickroll.mp3");
+            Song song2 = new Song("Song 2", "Artist 1", "Pop", "Assets/music/oof.mp3");
 
+            playlist.AddSong(song1);
+            playlist.AddSong(song2);
+
+            artist = new Artist("Artist 1", "Test artiest voor Spotify");
+
+            artist.AddSong(song1);
+            artist.AddSong(song2);
         }
 
         private void playButton_Click(object sender, EventArgs e)
@@ -56,6 +63,17 @@ namespace SpotifyWindowsForm
 
         private void friendsButton_Click(object sender, EventArgs e)
         {
+        }
+
+        private void artistButton_Click(object sender, EventArgs e)
+        {
+            //i.p.v een messagebox kan dit later een aparte form worden
+            MessageBox.Show(
+                artist.ToString(),
+                "Artist Information",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information
+            );
         }
     }
 }

@@ -47,6 +47,7 @@ namespace SpotifyWindowsForm
             cardLabel1 = new Label();
             playlistCard2 = new Panel();
             cardLabel2 = new Label();
+            artistButton = new Button();
             sidebar.SuspendLayout();
             playerBar.SuspendLayout();
             playlistCard1.SuspendLayout();
@@ -56,6 +57,7 @@ namespace SpotifyWindowsForm
             // sidebar
             // 
             sidebar.BackColor = Color.Black;
+            sidebar.Controls.Add(artistButton);
             sidebar.Controls.Add(homeButton);
             sidebar.Controls.Add(playlistButton);
             sidebar.Controls.Add(friendsButton);
@@ -190,6 +192,16 @@ namespace SpotifyWindowsForm
             cardLabel2.TabIndex = 0;
             cardLabel2.Text = "Chill Mix";
             // 
+            // artistButton
+            // 
+            artistButton.ForeColor = SystemColors.ButtonFace;
+            artistButton.Location = new Point(20, 260);
+            artistButton.Name = "artistButton";
+            artistButton.Size = new Size(180, 45);
+            artistButton.TabIndex = 3;
+            artistButton.Text = "Artists";
+            artistButton.Click += artistButton_Click;
+            // 
             // MainMenuForm
             // 
             BackColor = Color.FromArgb(18, 18, 18);
@@ -232,5 +244,7 @@ namespace SpotifyWindowsForm
         private Label cardLabel2;
 
         #endregion
+
+        private Button artistButton;
     }
 }

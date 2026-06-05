@@ -28,14 +28,29 @@
 	</ItemGroup>
 	
 	<ItemGroup>
+		<None Update="Assets\music\Bring Me The Horizon - Throne.mp3">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
 		<None Update="Assets\music\oof.mp3">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="Assets\music\Reaction.mp3">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 		<None Update="Assets\music\rickroll.MP3">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
+		<None Update="Assets\music\River Flows In You %28Yurima%29 Piano Cover By Rach.mp3">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
 		<None Update="Assets\music\sample-1.mp3">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="Assets\music\Slave to the Rithm %28Ray Volpe Remix%29 [feat. Bring Me The Horizon].mp3">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="Assets\music\Vivaldi - Cello Sonata III in a minor - Allegro.mp3">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>
 

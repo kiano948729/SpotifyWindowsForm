@@ -11,11 +11,11 @@ namespace SpotifyWindowsForm.Models
         public List<Song> Songs { get; set; }
         private int currentSongIndex = 0;
 
-        public Album(string name, string description, List<Song> songs)
+        public Album(string name, string description)
         {
             Name = name;
             Description = description;
-            Songs = songs;
+            Songs = new List<Song>();
         }
         public Album GetInfo(Album album)
         {

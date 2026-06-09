@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace SpotifyWindowsForm.Models
 {
@@ -31,6 +32,24 @@ namespace SpotifyWindowsForm.Models
         public List<Playlist> GetPlaylists()
         {
             return Playlists;
+        }
+        public void AddFriend(User user)
+        {
+            if (Friends != null)
+            {
+                Friends.Add(user);
+            }
+        }
+        public void RemoveFriend(User user)
+        {
+            if (Friends != null)
+            {
+                Friends.Remove(user);
+            }
+        }
+        public List<User> GetFriends()
+        {
+            return Friends;
         }
     }
 }

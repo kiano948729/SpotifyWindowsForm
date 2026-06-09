@@ -39,7 +39,6 @@ namespace SpotifyWindowsForm
             album2.AddSong(new Song("Song 3", "Artist 1", "Pop", "Assets/music/rickroll.mp3"));
             album2.AddSong(new Song("Song 4", "Artist 1", "Pop", "Assets/music/Vivaldi-Cello-Sonata.mp3"));
 
-
             album3.AddSong(new Song("Song 1", "Artist 1", "Pop", "Assets/music/River-Flows-In-You.mp3"));
             album3.AddSong(new Song("Song 2", "Artist 1", "Pop", "Assets/music/Bring-Me-The-Horizon-Throne.mp3"));
             album3.AddSong(new Song("Song 3", "Artist 1", "Pop", "Assets/music/rickroll.mp3"));
@@ -50,7 +49,6 @@ namespace SpotifyWindowsForm
             album4.AddSong(new Song("Song 3", "Artist 1", "Pop", "Assets/music/Bring-Me-The-Horizon-Throne.mp3"));
             album4.AddSong(new Song("Song 4", "Artist 1", "Pop", "Assets/music/rickroll.mp3"));
             
-
         }
         
 

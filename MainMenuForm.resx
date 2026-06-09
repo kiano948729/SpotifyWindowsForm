@@ -118,16 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Bring Me The Horizon - Throne" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Assets\music\Bring Me The Horizon - Throne.mp3;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="River Flows In You (Yurima) Piano Cover By Rach" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Assets\music\River Flows In You (Yurima) Piano Cover By Rach.mp3;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="Slave to the Rithm (Ray Volpe Remix) [feat. Bring Me The Horizon]" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Assets\music\Slave to the Rithm (Ray Volpe Remix) [feat. Bring Me The Horizon].mp3;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="Vivaldi - Cello Sonata III in a minor - Allegro" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Assets\music\Vivaldi - Cello Sonata III in a minor - Allegro.mp3;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

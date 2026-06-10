@@ -25,5 +25,10 @@ namespace SpotifyWindowsForm.Models
             this.ganre = ganre;
             this.FilePath = filepath;
         }
+
+        public Song GetCurrentSong()
+        {
+            return this;
+        }
     }
 }

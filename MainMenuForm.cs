@@ -10,7 +10,7 @@ namespace SpotifyWindowsForm
         private Musicplayer player;
         private Artist artist;
         private Album album1,album2,album3,album4;
-
+        private Song testSong;
         public MainMenuForm()
         {
             InitializeComponent();
@@ -26,16 +26,15 @@ namespace SpotifyWindowsForm
 
         private void SeedTestData()
         {
-            Song song1 = new Song("Song 1", "Artist 1", "Pop", "Assets/music/rickroll.mp3");
+            testSong = new Song("Song 1", "Artist 1", "Pop", "Assets/music/rickroll.mp3");
+
             Song song2 = new Song("Song 2", "Artist 1", "Pop", "Assets/music/oof.mp3");
 
-            playlist.AddSong(song1);
+            playlist.AddSong(testSong);
             playlist.AddSong(song2);
 
             artist = new Artist("Artist 1", "Test artiest voor Spotify");
 
-            artist.AddSong(song1);
-            artist.AddSong(song2);
             album1.AddSong(new Song("Song 1", "Artist 1", "Pop", "Assets/music/rickroll.mp3"));
             album1.AddSong(new Song("Song 2", "Artist 1", "Pop", "Assets/music/Vivaldi-Cello-Sonata.mp3"));
             album1.AddSong(new Song("Song 3", "Artist 1", "Pop", "Assets/music/River-Flows-In-You.mp3"));
@@ -55,13 +54,12 @@ namespace SpotifyWindowsForm
             album4.AddSong(new Song("Song 2", "Artist 1", "Pop", "Assets/music/River-Flows-In-You.mp3"));
             album4.AddSong(new Song("Song 3", "Artist 1", "Pop", "Assets/music/Bring-Me-The-Horizon-Throne.mp3"));
             album4.AddSong(new Song("Song 4", "Artist 1", "Pop", "Assets/music/rickroll.mp3"));
-            
         }
         
 
         private void playButton_Click(object sender, EventArgs e)
         {
-            playlist.PlayPlaylist(player);
+            player.Play(testSong);
         }
 
         private void pauseButton_Click(object sender, EventArgs e)

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace SpotifyWindowsForm.Models
 {
-    public class Song
+    public class Song : IPlayable
     {
 
         public string Title { get; set; }
@@ -24,6 +24,11 @@ namespace SpotifyWindowsForm.Models
             Artist = artist;
             this.ganre = ganre;
             this.FilePath = filepath;
+        }
+
+        public Song GetCurrentSong()
+        {
+            return this;
         }
     }
 }

@@ -1,61 +1,73 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NAudio.SoundFont;
 using NAudio.Wave;
+
 namespace SpotifyWindowsForm.Models
 {
     public class Musicplayer
     {
-        private WaveOutEvent outputDevice;
-        private AudioFileReader audioFile;
-        public void Play(Song Song)
-        {
+        private WaveOutEvent? outputDevice;
+        private AudioFileReader? audioFile;
 
+        public void Play(IPlayable playable)
+        {
+            if (playable == null)
+            {
+                Console.WriteLine("Geen afspeelbaar object geselecteerd");
+                return;
+            }
+
+            Song song = playable.GetCurrentSong();
+
+            if (song == null)
+            {
+                Console.WriteLine("Geen nummer gevonden");
+                return;
+            }
 
             if (outputDevice == null)
             {
                 outputDevice = new WaveOutEvent();
                 outputDevice.PlaybackStopped += OnPlaybackStopped;
             }
+
             if (audioFile == null)
             {
-                audioFile = new AudioFileReader(Song.FilePath);
+                audioFile = new AudioFileReader(song.FilePath);
                 outputDevice.Init(audioFile);
             }
-        outputDevice.Play();
+
+            outputDevice.Play();
         }
 
-        // Pause Button Click Event  
         public void Pause()
         {
-            if(outputDevice == null)
+            if (outputDevice == null)
             {
-                Console.WriteLine("geen nummer geselecteerd");
+                Console.WriteLine("Geen nummer geselecteerd");
+                return;
             }
-            else
-            {
-                outputDevice.Pause();
-            }
-            
+
+            outputDevice.Pause();
         }
 
-        // Stop Button Click Event  
         public void Stop()
         {
             outputDevice?.Stop();
         }
+
         public void Restart()
         {
-           audioFile.Position = 0;
-           // was working in forms, moved to player.
+            if (audioFile != null)
+            {
+                audioFile.Position = 0;
+            }
         }
+
         private void OnPlaybackStopped(object sender, StoppedEventArgs args)
         {
             outputDevice?.Dispose();
             outputDevice = null;
+
             audioFile?.Dispose();
             audioFile = null;
         }

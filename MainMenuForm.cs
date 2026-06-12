@@ -9,7 +9,7 @@ namespace SpotifyWindowsForm
         private Playlist playlist;
         private Musicplayer player;
         private Artist artist;
-        private Album album1,album2,album3,album4;
+        private Album album1, album2, album3, album4;
         private Song testSong;
         public MainMenuForm()
         {
@@ -22,6 +22,8 @@ namespace SpotifyWindowsForm
             album3 = new Album("testalbum-3", "dit is een test album");
             album4 = new Album("testalbum-4", "dit is een test album");
             SeedTestData();
+            ToggleInfo();
+            HomePannel.Visible = true;
         }
 
         private void SeedTestData()
@@ -55,7 +57,7 @@ namespace SpotifyWindowsForm
             album4.AddSong(new Song("Song 3", "Artist 1", "Pop", "Assets/music/Bring-Me-The-Horizon-Throne.mp3"));
             album4.AddSong(new Song("Song 4", "Artist 1", "Pop", "Assets/music/rickroll.mp3"));
         }
-        
+
 
         private void playButton_Click(object sender, EventArgs e)
         {
@@ -79,25 +81,67 @@ namespace SpotifyWindowsForm
 
         private void homeButton_Click(object sender, EventArgs e)
         {
+            ToggleInfo();
+            HomePannel.Visible = true;
         }
 
         private void playlistButton_Click(object sender, EventArgs e)
         {
+            ToggleInfo();
+            PlaylistPannel.Visible = true;
         }
 
         private void friendsButton_Click(object sender, EventArgs e)
         {
+            ToggleInfo();
+            FriendPannel.Visible = true;
+
         }
 
         private void artistButton_Click(object sender, EventArgs e)
         {
             //i.p.v een messagebox kan dit later een aparte form worden
-            MessageBox.Show(
-                artist.ToString(),
-                "Artist Information",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information
-            );
+            //MessageBox.Show(
+            //    artist.ToString(),
+            //    "Artist Information",
+            //    MessageBoxButtons.OK,
+            //    MessageBoxIcon.Information
+            //);
+            ToggleInfo();
+            ArtistPannel.Visible = true;
+        }
+
+        private void albumButton_Click(object sender, EventArgs e)
+        {
+            ToggleInfo();
+            AlbumPannel.Visible = true;
+        }
+        private void nummersButton_Click(object sender, EventArgs e)
+        {
+            ToggleInfo();
+            NummersPannel.Visible = true;
+        }
+        private void verzoekenButton_Click(object sender, EventArgs e)
+        {
+            ToggleInfo();
+            VerzoekenPannel.Visible = true;
+        }
+        private void changeUserButton_Click(object sender, EventArgs e)
+        {
+            ToggleInfo();
+            ChangeUserPannel.Visible = true;
+        }
+        private void ToggleInfo()
+        {
+            HomePannel.Visible = false;
+            PlaylistPannel.Visible = false;
+            FriendPannel.Visible = false;
+            ArtistPannel.Visible = false;
+            AlbumPannel.Visible = false;
+            NummersPannel.Visible = false;
+            VerzoekenPannel.Visible = false;
+            ChangeUserPannel.Visible = false;
+
         }
     }
 }

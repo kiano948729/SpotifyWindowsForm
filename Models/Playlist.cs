@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SpotifyWindowsForm.Models
 {
-    public class Playlist
+    public class Playlist : IPlayable
     {
         public string Name { get; set; }
         public List<Song> Songs { get; set; }
@@ -57,7 +57,7 @@ namespace SpotifyWindowsForm.Models
             if (Songs.Count == 0 || player == null) return;
 
             currentSongIndex = 0;
-            player.Play(Songs[currentSongIndex]);
+            player.Play(this);
         }
 
         public void SkipSong(Musicplayer player)
@@ -72,7 +72,7 @@ namespace SpotifyWindowsForm.Models
                 return;
             }
 
-            player.Play(Songs[currentSongIndex]);
+            player.Play(this);
         }
 
         public void StopPlaylist(Musicplayer player)

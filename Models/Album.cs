@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SpotifyWindowsForm.Models
 {
-    public class Album
+    public class Album : IPlayable
     {
         public string Name { get; set; }
         public string Description { get; set; }
@@ -33,6 +33,7 @@ namespace SpotifyWindowsForm.Models
                 Console.WriteLine("song not found");
             }
         }
+
         public void RemoveSong(Song song)
         {
             if (song != null)
@@ -44,17 +45,21 @@ namespace SpotifyWindowsForm.Models
                 Console.WriteLine("could not remove song"); 
             }
         }
+
         public void PlayAlbum(Musicplayer player)
-
         {
-
             if (Songs.Count == 0 || player == null) return;
 
-
             currentSongIndex = 0;
+            player.Play(this);
+        }
 
-            player.Play(Songs[currentSongIndex]);
+        public Song GetCurrentSong()
+        {
+            if (Songs.Count == 0)
+                return null;
 
+            return Songs[currentSongIndex];
         }
     }
 }

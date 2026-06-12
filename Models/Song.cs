@@ -6,7 +6,7 @@ using System.Text;
 
 namespace SpotifyWindowsForm.Models
 {
-    public class Song
+    public class Song : IPlayable
     {
 
         public string Title { get; set; }

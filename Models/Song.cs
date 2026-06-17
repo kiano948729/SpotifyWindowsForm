@@ -12,18 +12,18 @@ namespace SpotifyWindowsForm.Models
         public string Title { get; set; }
         public string Artist { get; set; }
         public string FilePath {  get; set; }
-        public string ganre { get; set; }
+        public string Genre { get; set; }
 
-        /* title,ganre, artist, timestamp
+        /* title,genre, artist, timestamp
          * song heeft dalijk een tijdsduur, naam en artiest.
          * play 
          */
-        public Song(string title, string artist, string ganre, string filepath)
+        public Song(string title, string artist, string genre, string filepath)
         {
             Title = title;
             Artist = artist;
-            this.ganre = ganre;
-            this.FilePath = filepath;
+            Genre = genre;
+            FilePath = filepath;
         }
 
         public Song GetCurrentSong()

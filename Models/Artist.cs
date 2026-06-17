@@ -59,7 +59,7 @@ namespace SpotifyWindowsForm.Models
             info += "\nSongs:\n";
             foreach (var song in Songs)
             {
-                info += $"{song.Title} ({song.ganre})\n";
+                info += $"{song.Title} ({song.Genre})\n";
             }
 
             return info;

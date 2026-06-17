@@ -11,6 +11,7 @@ namespace SpotifyWindowsForm.Models
     public abstract class MusicCollection : IPlayable
     {
         protected int currentSongIndex = 0;
+        public bool RepeatEnabled { get; set; } = false;
 
         public List<Song> Songs { get; }
 
@@ -41,6 +42,49 @@ namespace SpotifyWindowsForm.Models
                 return null;
 
             return Songs[currentSongIndex];
+        }
+
+        public bool MoveNext()
+        {
+            if (Songs.Count == 0) return false;
+
+            if (currentSongIndex + 1 < Songs.Count)
+            {
+                currentSongIndex++;
+                return true;
+            }
+
+            if (RepeatEnabled)
+            {
+                currentSongIndex = 0;
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool MovePrevious()
+        {
+            if (Songs.Count == 0) return false;
+
+            if (currentSongIndex > 0)
+            {
+                currentSongIndex--;
+                return true;
+            }
+
+            if (RepeatEnabled)
+            {
+                currentSongIndex = Songs.Count - 1;
+                return true;
+            }
+
+            return false;
+        }
+
+        public void Reset()
+        {
+            currentSongIndex = 0;
         }
     }
 }

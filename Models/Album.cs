@@ -20,10 +20,8 @@ namespace SpotifyWindowsForm.Models
 
         public void PlayAlbum(Musicplayer player)
         {
-            if (Songs.Count == 0 || player == null)
-                return;
-
-            currentSongIndex = 0;
+            if (Songs.Count == 0 || player == null) return;
+            Reset(); 
             player.Play(this);
         }
     }

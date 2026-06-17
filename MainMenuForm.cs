@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Data.Common;
+using System.Diagnostics;
 using System.Windows.Forms;
 using SpotifyWindowsForm.Models;
 
@@ -8,19 +10,23 @@ namespace SpotifyWindowsForm
     {
         private Playlist playlist;
         private Musicplayer player;
-        private Artist artist;
-        private Album album1, album2, album3, album4;
-        private Song testSong;
+        private Album testAlbum;
+        private IPlayable? activeCollection;
+
         public MainMenuForm()
         {
             InitializeComponent();
 
             player = new Musicplayer();
-            playlist = new Playlist("Test playlist");
-            album1 = new Album("testalbum-1", "dit is een test album");
-            album2 = new Album("testalbum-2", "dit is een test album");
-            album3 = new Album("testalbum-3", "dit is een test album");
-            album4 = new Album("testalbum-4", "dit is een test album");
+
+            //auto-advance terug op de UI-thread uitvoeren
+            player.OnAutoAdvance = (collection) =>
+            {
+                this.BeginInvoke(() => player.Play(collection));
+            };
+
+            playlist = new Playlist("Test Playlist");
+            testAlbum = new Album("Test Album", "Album voor testen");
             SeedTestData();
             ToggleInfo();
             HomePannel.Visible = true;
@@ -28,40 +34,34 @@ namespace SpotifyWindowsForm
 
         private void SeedTestData()
         {
-            testSong = new Song("Song 1", "Artist 1", "Pop", "Assets/music/rickroll.mp3");
+            //playlist
+            playlist.AddSong(new Song("Rickroll", "Rick Astley", "Pop", "Assets/music/rickroll.MP3"));
+            playlist.AddSong(new Song("Oof", "Onbekend", "Meme", "Assets/music/oof.mp3"));
+            playlist.AddSong(new Song("River Flows In You", "Yiruma", "Classical", "Assets/music/River-Flows-In-You.mp3"));
 
-            Song song2 = new Song("Song 2", "Artist 1", "Pop", "Assets/music/oof.mp3");
-
-            playlist.AddSong(testSong);
-            playlist.AddSong(song2);
-
-            artist = new Artist("Artist 1", "Test artiest voor Spotify");
-
-            album1.AddSong(new Song("Song 1", "Artist 1", "Pop", "Assets/music/rickroll.mp3"));
-            album1.AddSong(new Song("Song 2", "Artist 1", "Pop", "Assets/music/Vivaldi-Cello-Sonata.mp3"));
-            album1.AddSong(new Song("Song 3", "Artist 1", "Pop", "Assets/music/River-Flows-In-You.mp3"));
-            album1.AddSong(new Song("Song 4", "Artist 1", "Pop", "Assets/music/Bring-Me-The-Horizon-Throne.mp3"));
-
-            album2.AddSong(new Song("Song 1", "Artist 1", "Pop", "Assets/music/River-Flows-In-You.mp3"));
-            album2.AddSong(new Song("Song 2", "Artist 1", "Pop", "Assets/music/Bring-Me-The-Horizon-Throne.mp3"));
-            album2.AddSong(new Song("Song 3", "Artist 1", "Pop", "Assets/music/rickroll.mp3"));
-            album2.AddSong(new Song("Song 4", "Artist 1", "Pop", "Assets/music/Vivaldi-Cello-Sonata.mp3"));
-
-            album3.AddSong(new Song("Song 1", "Artist 1", "Pop", "Assets/music/River-Flows-In-You.mp3"));
-            album3.AddSong(new Song("Song 2", "Artist 1", "Pop", "Assets/music/Bring-Me-The-Horizon-Throne.mp3"));
-            album3.AddSong(new Song("Song 3", "Artist 1", "Pop", "Assets/music/rickroll.mp3"));
-            album3.AddSong(new Song("Song 4", "Artist 1", "Pop", "Assets/music/Vivaldi-Cello-Sonata.mp3"));
-
-            album4.AddSong(new Song("Song 1", "Artist 1", "Pop", "Assets/music/Vivaldi-Cello-Sonata.mp3"));
-            album4.AddSong(new Song("Song 2", "Artist 1", "Pop", "Assets/music/River-Flows-In-You.mp3"));
-            album4.AddSong(new Song("Song 3", "Artist 1", "Pop", "Assets/music/Bring-Me-The-Horizon-Throne.mp3"));
-            album4.AddSong(new Song("Song 4", "Artist 1", "Pop", "Assets/music/rickroll.mp3"));
+            //album
+            testAlbum.AddSong(new Song("fantaisie impromptu", "frededric chopin", "Classical", "Assets/music/fantaisie-impromptu.mp3"));
+            testAlbum.AddSong(new Song("Oof", "Onbekend", "Meme", "Assets/music/oof.mp3"));
+            testAlbum.AddSong(new Song("River Flows In You", "Yiruma", "Classical", "Assets/music/River-Flows-In-You.mp3"));
+            testAlbum.AddSong(new Song("Vivaldi Cello Sonata", "Vivaldi", "Classical", "Assets/music/Vivaldi-Cello-Sonata.mp3"));
+            testAlbum.AddSong(new Song("Throne", "Bring Me The Horizon", "Metal", "Assets/music/Bring-Me-The-Horizon-Throne.mp3"));
+            testAlbum.AddSong(new Song("Reaction", "Onbekend", "Electronic", "Assets/music/Reaction.mp3"));
         }
 
+        //home paneel knoppen
 
         private void playButton_Click(object sender, EventArgs e)
         {
-            player.Play(testSong);
+            if (activeCollection != null)
+            {
+                player.Play(activeCollection);
+            }
+            else
+            {
+                activeCollection = playlist;
+                playlist.Reset();
+                player.Play(playlist);
+            }
         }
 
         private void pauseButton_Click(object sender, EventArgs e)
@@ -74,11 +74,65 @@ namespace SpotifyWindowsForm
             player.Stop();
         }
 
-        private void skipButton_Click(object sender, EventArgs e)
+        private void repeatButton_Click(object sender, EventArgs e)
         {
-            playlist.SkipSong(player);
+            if (activeCollection is MusicCollection collection)
+            {
+                collection.RepeatEnabled = !collection.RepeatEnabled;
+                repeatButton.Text = collection.RepeatEnabled ? "Aan" : "Uit";
+            }
         }
 
+        //playlist paneel knoppen
+
+        private void playPlaylistButton_Click(object sender, EventArgs e)
+        {
+            activeCollection = playlist;
+            playlist.Reset();
+            player.Play(playlist);
+        }
+
+        private void previousButton_Click(object sender, EventArgs e)
+        {
+            if (activeCollection is MusicCollection collection)
+            {
+                bool moved = collection.MovePrevious();
+                if (moved) player.Play(activeCollection);
+            }
+        }
+
+        private void nextButton_Click(object sender, EventArgs e)
+        {
+            if (activeCollection is MusicCollection collection)
+            {
+                player.Next();
+            }
+        }
+
+        // album paneel knoppen
+        private void playAlbumButton_Click(object sender, EventArgs e)
+        {
+            activeCollection = testAlbum;
+            testAlbum.PlayAlbum(player);
+        }
+
+        private void previousAlbumButton_Click(object sender, EventArgs e)
+        {
+            if (activeCollection is MusicCollection collection)
+            {
+                player.Previous();
+            }
+        }
+
+        private void nextAlbumButton_Click(object sender, EventArgs e)
+        {
+            if (activeCollection is MusicCollection collection)
+            {
+                player.Next();
+            }
+        }
+
+        //navigatie knoppen
         private void homeButton_Click(object sender, EventArgs e)
         {
             ToggleInfo();
@@ -95,7 +149,6 @@ namespace SpotifyWindowsForm
         {
             ToggleInfo();
             FriendPannel.Visible = true;
-
         }
 
         private void artistButton_Click(object sender, EventArgs e)
@@ -141,7 +194,6 @@ namespace SpotifyWindowsForm
             NummersPannel.Visible = false;
             VerzoekenPannel.Visible = false;
             ChangeUserPannel.Visible = false;
-
         }
     }
 }

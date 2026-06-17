@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows.Forms;
 using SpotifyWindowsForm.Models;
 
@@ -16,6 +17,13 @@ namespace SpotifyWindowsForm
             InitializeComponent();
 
             player = new Musicplayer();
+
+            //auto-advance terug op de UI-thread uitvoeren
+            player.OnAutoAdvance = (collection) =>
+            {
+                this.BeginInvoke(() => player.Play(collection));
+            };
+
             playlist = new Playlist("Test Playlist");
             testAlbum = new Album("Test Album", "Album voor testen");
             SeedTestData();
@@ -31,6 +39,7 @@ namespace SpotifyWindowsForm
             playlist.AddSong(new Song("River Flows In You", "Yiruma", "Classical", "Assets/music/River-Flows-In-You.mp3"));
 
             //album
+            testAlbum.AddSong(new Song("fantaisie impromptu", "frededric chopin", "Classical", "Assets/music/fantaisie-impromptu.mp3"));
             testAlbum.AddSong(new Song("Oof", "Onbekend", "Meme", "Assets/music/oof.mp3"));
             testAlbum.AddSong(new Song("River Flows In You", "Yiruma", "Classical", "Assets/music/River-Flows-In-You.mp3"));
             testAlbum.AddSong(new Song("Vivaldi Cello Sonata", "Vivaldi", "Classical", "Assets/music/Vivaldi-Cello-Sonata.mp3"));
@@ -95,10 +104,7 @@ namespace SpotifyWindowsForm
         {
             if (activeCollection is MusicCollection collection)
             {
-                Console.WriteLine("volgende nummer: " + collection.GetCurrentSong()?.Title);
-                bool moved = collection.MoveNext();
-                if (moved) player.Play(activeCollection);
-                else player.Stop();
+                player.Next();
             }
         }
 
@@ -114,18 +120,17 @@ namespace SpotifyWindowsForm
             if (activeCollection is MusicCollection collection)
             {
                 bool moved = collection.MovePrevious();
-                if (moved) player.Play(activeCollection);
+                if (moved) player.Previous();
             }
         }
 
         private void nextAlbumButton_Click(object sender, EventArgs e)
         {
+            Debug.WriteLine($"ActiveCollection: {activeCollection?.GetType().Name}");
             if (activeCollection is MusicCollection collection)
             {
-                Console.WriteLine("volgende nummer: " + collection.GetCurrentSong()?.Title);
-
                 bool moved = collection.MoveNext();
-                if (moved) player.Play(activeCollection);
+                if (moved) player.Next();
                 else player.Stop();
             }
         }

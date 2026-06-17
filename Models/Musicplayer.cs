@@ -7,8 +7,10 @@ namespace SpotifyWindowsForm.Models
     {
         private WaveOutEvent? outputDevice;
         private AudioFileReader? audioFile;
+
         private IPlayable? currentCollection;
-        private bool manualStop = false;
+
+        public Action<IPlayable>? OnAutoAdvance { get; set; }
 
         public void Play(IPlayable playable)
         {
@@ -17,72 +19,74 @@ namespace SpotifyWindowsForm.Models
 
             currentCollection = playable;
 
-            manualStop = true;
-            outputDevice?.Stop();
-            outputDevice?.Dispose();
-            audioFile?.Dispose();
-            manualStop = false;
+            Cleanup();
 
             outputDevice = new WaveOutEvent();
-            outputDevice.PlaybackStopped += OnPlaybackStopped;
-
             audioFile = new AudioFileReader(song.FilePath);
+
             outputDevice.Init(audioFile);
+            outputDevice.PlaybackStopped += OnPlaybackStopped;
             outputDevice.Play();
         }
 
         public void Pause()
         {
-            if (outputDevice == null)
-            {
-                Console.WriteLine("Geen nummer geselecteerd");
-                return;
-            }
-
-            outputDevice.Pause();
+            outputDevice?.Pause();
         }
 
         public void Stop()
         {
-            manualStop = true;
-            outputDevice?.Stop();
+            Cleanup();
         }
 
         public void Restart()
         {
             if (audioFile != null)
-            {
                 audioFile.Position = 0;
+        }
+
+        public void Next()
+        {
+            if (currentCollection is MusicCollection mc)
+            {
+                if (mc.MoveNext())
+                    Play(mc);
             }
         }
 
-        private void OnPlaybackStopped(object sender, StoppedEventArgs args)
+        public void Previous()
         {
-            if (manualStop)
+            if (currentCollection is MusicCollection mc)
             {
-                outputDevice?.Dispose();
-                outputDevice = null;
-                audioFile?.Dispose();
-                audioFile = null;
-                return;
+                if (mc.MovePrevious())
+                    Play(mc);
             }
+        }
 
-            //nummer is automatisch klaar: doorschakelen
-            if (currentCollection is MusicCollection collection)
+        private void OnPlaybackStopped(object? sender, StoppedEventArgs e)
+        {
+            Cleanup();
+
+            if (currentCollection is MusicCollection mc)
             {
-                bool hasNext = collection.MoveNext();
-                if (hasNext)
+                if (mc.MoveNext())
                 {
-                    Play(currentCollection);
-                    return;
+                    OnAutoAdvance?.Invoke(mc);
                 }
             }
+        }
 
-            outputDevice?.Dispose();
-            outputDevice = null;
+        private void Cleanup()
+        {
+            if (outputDevice != null)
+            {
+                outputDevice.PlaybackStopped -= OnPlaybackStopped;
+                outputDevice.Dispose();
+                outputDevice = null;
+            }
+
             audioFile?.Dispose();
             audioFile = null;
-            currentCollection = null;
         }
     }
 }

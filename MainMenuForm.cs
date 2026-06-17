@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Common;
 using System.Diagnostics;
 using System.Windows.Forms;
 using SpotifyWindowsForm.Models;
@@ -119,19 +120,15 @@ namespace SpotifyWindowsForm
         {
             if (activeCollection is MusicCollection collection)
             {
-                bool moved = collection.MovePrevious();
-                if (moved) player.Previous();
+                player.Previous();
             }
         }
 
         private void nextAlbumButton_Click(object sender, EventArgs e)
         {
-            Debug.WriteLine($"ActiveCollection: {activeCollection?.GetType().Name}");
             if (activeCollection is MusicCollection collection)
             {
-                bool moved = collection.MoveNext();
-                if (moved) player.Next();
-                else player.Stop();
+                player.Next();
             }
         }
 

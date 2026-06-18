@@ -95,10 +95,13 @@ namespace SpotifyWindowsForm
             flowLayoutPanel15 = new FlowLayoutPanel();
             button12 = new Button();
             button13 = new Button();
+            listBox1 = new ListBox();
             ChangeUserPannel = new FlowLayoutPanel();
             flowLayoutPanel16 = new FlowLayoutPanel();
             label7 = new Label();
+            lstUsers = new ListBox();
             button14 = new Button();
+            toevoegen = new Button();
             sidebar.SuspendLayout();
             playlistCard1.SuspendLayout();
             playlistCard2.SuspendLayout();
@@ -672,6 +675,7 @@ namespace SpotifyWindowsForm
             // 
             // flowLayoutPanel15
             // 
+            flowLayoutPanel15.Controls.Add(listBox1);
             flowLayoutPanel15.Controls.Add(button12);
             flowLayoutPanel15.Controls.Add(button13);
             flowLayoutPanel15.Location = new Point(3, 89);
@@ -681,7 +685,7 @@ namespace SpotifyWindowsForm
             // 
             // button12
             // 
-            button12.Location = new Point(3, 3);
+            button12.Location = new Point(3, 413);
             button12.Name = "button12";
             button12.Size = new Size(112, 34);
             button12.TabIndex = 0;
@@ -690,17 +694,28 @@ namespace SpotifyWindowsForm
             // 
             // button13
             // 
-            button13.Location = new Point(121, 3);
+            button13.Location = new Point(121, 413);
             button13.Name = "button13";
             button13.Size = new Size(112, 34);
             button13.TabIndex = 1;
             button13.Text = "weigeren";
             button13.UseVisualStyleBackColor = true;
             // 
+            // listBox1
+            // 
+            listBox1.FormattingEnabled = true;
+            listBox1.ItemHeight = 25;
+            listBox1.Location = new Point(3, 3);
+            listBox1.Name = "listBox1";
+            listBox1.Size = new Size(780, 404);
+            listBox1.TabIndex = 7;
+            // 
             // ChangeUserPannel
             // 
             ChangeUserPannel.Controls.Add(flowLayoutPanel16);
+            ChangeUserPannel.Controls.Add(lstUsers);
             ChangeUserPannel.Controls.Add(button14);
+            ChangeUserPannel.Controls.Add(toevoegen);
             ChangeUserPannel.Location = new Point(223, 0);
             ChangeUserPannel.Name = "ChangeUserPannel";
             ChangeUserPannel.Size = new Size(774, 597);
@@ -724,14 +739,34 @@ namespace SpotifyWindowsForm
             label7.TabIndex = 0;
             label7.Text = "verander van gebruiker";
             // 
+            // lstUsers
+            // 
+            lstUsers.FormattingEnabled = true;
+            lstUsers.ItemHeight = 25;
+            lstUsers.Location = new Point(3, 89);
+            lstUsers.Name = "lstUsers";
+            lstUsers.Size = new Size(780, 404);
+            lstUsers.TabIndex = 6;
+            lstUsers.SelectedIndexChanged += lstUsers_SelectedIndexChanged;
+            // 
             // button14
             // 
-            button14.Location = new Point(3, 89);
+            button14.Location = new Point(3, 499);
             button14.Name = "button14";
             button14.Size = new Size(226, 34);
             button14.TabIndex = 5;
             button14.Text = "wissel van gebruiker";
             button14.UseVisualStyleBackColor = true;
+            // 
+            // toevoegen
+            // 
+            toevoegen.Location = new Point(235, 499);
+            toevoegen.Name = "toevoegen";
+            toevoegen.Size = new Size(226, 34);
+            toevoegen.TabIndex = 7;
+            toevoegen.Text = "toevoegen_vriend";
+            toevoegen.UseVisualStyleBackColor = true;
+            toevoegen.Click += toevoegen_Click;
             // 
             // MainMenuForm
             // 
@@ -749,6 +784,7 @@ namespace SpotifyWindowsForm
             Name = "MainMenuForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Spotify Clone";
+            Load += MainMenuForm_Load;
             sidebar.ResumeLayout(false);
             playlistCard1.ResumeLayout(false);
             playlistCard2.ResumeLayout(false);
@@ -861,5 +897,8 @@ namespace SpotifyWindowsForm
         private FlowLayoutPanel flowLayoutPanel16;
         private Label label7;
         private Button button14;
+        private ListBox lstUsers;
+        private Button toevoegen;
+        private ListBox listBox1;
     }
 }

@@ -1,6 +1,10 @@
-﻿using System;
-using System.Windows.Forms;
+﻿using SpotifyWindowsForm.Data;
 using SpotifyWindowsForm.Models;
+using SpotifyWindowsForm.Services;
+using System;
+using System.DirectoryServices;
+using System.Windows.Forms;
+
 
 namespace SpotifyWindowsForm
 {
@@ -24,6 +28,11 @@ namespace SpotifyWindowsForm
             SeedTestData();
             ToggleInfo();
             HomePannel.Visible = true;
+            //string users = string.Join(
+            //    Environment.NewLine,
+            //    UserStore.Users.Select(u => u.Username));
+
+            //MessageBox.Show(users);
         }
 
         private void SeedTestData()
@@ -56,6 +65,7 @@ namespace SpotifyWindowsForm
             album4.AddSong(new Song("Song 2", "Artist 1", "Pop", "Assets/music/River-Flows-In-You.mp3"));
             album4.AddSong(new Song("Song 3", "Artist 1", "Pop", "Assets/music/Bring-Me-The-Horizon-Throne.mp3"));
             album4.AddSong(new Song("Song 4", "Artist 1", "Pop", "Assets/music/rickroll.mp3"));
+
         }
 
 
@@ -124,12 +134,23 @@ namespace SpotifyWindowsForm
         private void verzoekenButton_Click(object sender, EventArgs e)
         {
             ToggleInfo();
-            VerzoekenPannel.Visible = true;
+            VerzoekenPannel.Visible = true;        
+            User currentUser = UserStore.Users.First();
+
+            listBox1.DataSource =
+                AppData.FriendService.GetRequestsForUser(currentUser);
+
+            listBox1.DisplayMember = "Sender.Username";
+        
         }
         private void changeUserButton_Click(object sender, EventArgs e)
         {
             ToggleInfo();
             ChangeUserPannel.Visible = true;
+            authenticationService LoginTest = new authenticationService();
+            LoginTest.AuthenticationService("name", "password");
+            // hier moet nog een formulier bij komen om username+password door te sturen naar auth.service
+
         }
         private void ToggleInfo()
         {
@@ -142,6 +163,30 @@ namespace SpotifyWindowsForm
             VerzoekenPannel.Visible = false;
             ChangeUserPannel.Visible = false;
 
+        }
+
+        private void lstUsers_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void MainMenuForm_Load(object sender, EventArgs e)
+        {
+            lstUsers.DataSource = UserStore.Users;
+            lstUsers.DisplayMember = "Username";
+        }
+
+        private void toevoegen_Click(object sender, EventArgs e)
+        {
+            User selectedUser = (User)lstUsers.SelectedItem;
+
+            if (selectedUser == null) return;
+
+            User currentUser = UserStore.Users.First();
+
+            AppData.FriendService.SendRequest(currentUser, selectedUser);
+
+            MessageBox.Show($"Request gestuurd naar {selectedUser.Username}");
         }
     }
 }

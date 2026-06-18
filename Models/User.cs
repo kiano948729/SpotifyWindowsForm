@@ -1,6 +1,10 @@
-﻿using System;
+﻿using Microsoft.VisualBasic.ApplicationServices;
+using SpotifyWindowsForm.Services;
+using System;
 using System.Collections.Generic;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+
+using SpotifyWindowsForm.Services;
 
 namespace SpotifyWindowsForm.Models
 {
@@ -39,6 +43,8 @@ namespace SpotifyWindowsForm.Models
             {
                 Friends.Add(user);
             }
+            //friendService.SendRequest(user1, user2);
+
         }
         public void RemoveFriend(User user)
         {

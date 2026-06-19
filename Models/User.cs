@@ -1,20 +1,26 @@
-﻿using System;
+﻿using Microsoft.VisualBasic.ApplicationServices;
+using SpotifyWindowsForm.Services;
+using System;
 using System.Collections.Generic;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+
+using SpotifyWindowsForm.Services;
 
 namespace SpotifyWindowsForm.Models
 {
     public class User
     {
         public string Username { get; set; }
+        public string Password { get; set; }
 
         //collecties
         public List<User> Friends { get; set; }
         public List<Playlist> Playlists { get; set; }
 
-        public User(string username)
+        public User(string username, string password)
         {
             Username = username;
+            Password = password;
             Friends = new List<User>();
             Playlists = new List<Playlist>();
         }
@@ -39,6 +45,8 @@ namespace SpotifyWindowsForm.Models
             {
                 Friends.Add(user);
             }
+            //friendService.SendRequest(user1, user2);
+
         }
         public void RemoveFriend(User user)
         {

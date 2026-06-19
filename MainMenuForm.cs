@@ -93,12 +93,6 @@ namespace SpotifyWindowsForm
         }
 
         //playlist paneel knoppen
-
-            album4.AddSong(new Song("Song 1", "Artist 1", "Pop", "Assets/music/Vivaldi-Cello-Sonata.mp3"));
-            album4.AddSong(new Song("Song 2", "Artist 1", "Pop", "Assets/music/River-Flows-In-You.mp3"));
-            album4.AddSong(new Song("Song 3", "Artist 1", "Pop", "Assets/music/Bring-Me-The-Horizon-Throne.mp3"));
-            album4.AddSong(new Song("Song 4", "Artist 1", "Pop", "Assets/music/rickroll.mp3"));
-
         private void playPlaylistButton_Click(object sender, EventArgs e)
         {
             activeCollection = playlist;

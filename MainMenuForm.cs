@@ -134,14 +134,14 @@ namespace SpotifyWindowsForm
         private void verzoekenButton_Click(object sender, EventArgs e)
         {
             ToggleInfo();
-            VerzoekenPannel.Visible = true;        
+            VerzoekenPannel.Visible = true;
             User currentUser = UserStore.Users.First();
 
             listBox1.DataSource =
                 AppData.FriendService.GetRequestsForUser(currentUser);
 
             listBox1.DisplayMember = "Sender.Username";
-        
+
         }
         private void changeUserButton_Click(object sender, EventArgs e)
         {
@@ -187,6 +187,27 @@ namespace SpotifyWindowsForm
             AppData.FriendService.SendRequest(currentUser, selectedUser);
 
             MessageBox.Show($"Request gestuurd naar {selectedUser.Username}");
+        }
+
+        private void inloggen_Click(object sender, EventArgs e)
+        {
+            bool success = LoginService.Login(
+                textBox1.Text,
+                textBox2.Text);
+
+            if (success)
+            {
+                MessageBox.Show($"Welkom {LoginService.CurrentUser?.Username}!");
+            }
+            else
+            {
+                MessageBox.Show("Ongeldige gebruikersnaam of wachtwoord.");
+            }
+        }
+        private void uitloggen_Click(object sender, EventArgs e)
+        {
+            LoginService.Logout();
+            MessageBox.Show("Uitgelogd.");
         }
     }
 }

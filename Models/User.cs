@@ -11,14 +11,16 @@ namespace SpotifyWindowsForm.Models
     public class User
     {
         public string Username { get; set; }
+        public string Password { get; set; }
 
         //collecties
         public List<User> Friends { get; set; }
         public List<Playlist> Playlists { get; set; }
 
-        public User(string username)
+        public User(string username, string password)
         {
             Username = username;
+            Password = password;
             Friends = new List<User>();
             Playlists = new List<Playlist>();
         }

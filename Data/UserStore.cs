@@ -12,8 +12,8 @@ namespace SpotifyWindowsForm.Data
     {
         public static List<User> Users = new List<User>
     {
-        new User("testgebruiker1"),
-        new User("tester2")
+        new User("testgebruiker1","1234"),
+        new User("tester2", "4321")
     };
     }
 }

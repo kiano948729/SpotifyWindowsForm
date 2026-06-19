@@ -39,25 +39,5 @@ namespace SpotifyWindowsForm.Models
             currentSongIndex = 0;
             player.Play(this);
         }
-
-        public void SkipSong(Musicplayer player)
-        {
-            if (Songs.Count == 0 || player == null) return;
-
-            currentSongIndex++;
-
-            if (currentSongIndex >= Songs.Count)
-            {
-                player.Stop();
-                return;
-            }
-
-            player.Play(this);
-        }
-
-        public void StopPlaylist(Musicplayer player)
-        {
-            player?.Stop();
-        }
     }
 }

@@ -31,6 +31,9 @@
 		<None Update="Assets\music\Bring-Me-The-Horizon-Throne.mp3">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
+		<None Update="Assets\music\fantaisie-impromptu.mp3">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
 		<None Update="Assets\music\oof.mp3">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
@@ -49,7 +52,7 @@
 		<None Update="Assets\music\Slave to the Rithm %28Ray Volpe Remix%29 [feat. Bring Me The Horizon].mp3">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
-		<None Update="Assets\music\Vivaldi-Cello-Sonata .mp3">
+		<None Update="Assets\music\Vivaldi-Cello-Sonata.mp3">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>

@@ -30,7 +30,7 @@ namespace SpotifyWindowsForm
         /// <summary>
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
-        /// </summary
+        /// </summary>
         private void InitializeComponent()
         {
             sidebar = new Panel();
@@ -45,6 +45,7 @@ namespace SpotifyWindowsForm
             playButton = new Button();
             pauseButton = new Button();
             stopButton = new Button();
+            repeatButton = new Button();
             titleLabel = new Label();
             playlistLabel = new Label();
             playlistCard1 = new Panel();
@@ -231,7 +232,7 @@ namespace SpotifyWindowsForm
             friendsButton.Text = "Friends";
             friendsButton.Click += friendsButton_Click;
             // 
-            // playButton
+            // playButton (Home paneel)
             // 
             playButton.Image = Properties.Resources.play_icon;
             playButton.Location = new Point(3, 3);
@@ -240,7 +241,7 @@ namespace SpotifyWindowsForm
             playButton.TabIndex = 0;
             playButton.Click += playButton_Click;
             // 
-            // pauseButton
+            // pauseButton (Home paneel)
             // 
             pauseButton.Image = Properties.Resources.pause_icon;
             pauseButton.Location = new Point(69, 3);
@@ -249,7 +250,7 @@ namespace SpotifyWindowsForm
             pauseButton.TabIndex = 1;
             pauseButton.Click += pauseButton_Click;
             // 
-            // stopButton
+            // stopButton (Home paneel)
             // 
             stopButton.Image = Properties.Resources.stop_icon;
             stopButton.Location = new Point(135, 3);
@@ -257,6 +258,15 @@ namespace SpotifyWindowsForm
             stopButton.Size = new Size(60, 60);
             stopButton.TabIndex = 2;
             stopButton.Click += stopButton_Click;
+            // 
+            // repeatButton (Home paneel)
+            // 
+            repeatButton.Text = "Uit";
+            repeatButton.Location = new Point(201, 3);
+            repeatButton.Name = "repeatButton";
+            repeatButton.Size = new Size(70, 60);
+            repeatButton.TabIndex = 3;
+            repeatButton.Click += repeatButton_Click;
             // 
             // titleLabel
             // 
@@ -345,11 +355,12 @@ namespace SpotifyWindowsForm
             flowLayoutPanel3.Size = new Size(533, 275);
             flowLayoutPanel3.TabIndex = 6;
             // 
-            // flowLayoutPanel4
+            // flowLayoutPanel4 - Home player balk (play, pause, stop, repeat)
             // 
             flowLayoutPanel4.Controls.Add(playButton);
             flowLayoutPanel4.Controls.Add(pauseButton);
             flowLayoutPanel4.Controls.Add(stopButton);
+            flowLayoutPanel4.Controls.Add(repeatButton);
             flowLayoutPanel4.Location = new Point(3, 483);
             flowLayoutPanel4.Name = "flowLayoutPanel4";
             flowLayoutPanel4.Size = new Size(768, 117);
@@ -390,7 +401,7 @@ namespace SpotifyWindowsForm
             PlaylistField.Size = new Size(771, 407);
             PlaylistField.TabIndex = 1;
             // 
-            // ButtonBarPlaylistPannel
+            // ButtonBarPlaylistPannel — play playlist, vorige, volgende
             // 
             ButtonBarPlaylistPannel.Controls.Add(button3);
             ButtonBarPlaylistPannel.Controls.Add(button2);
@@ -400,29 +411,34 @@ namespace SpotifyWindowsForm
             ButtonBarPlaylistPannel.Size = new Size(771, 114);
             ButtonBarPlaylistPannel.TabIndex = 0;
             // 
-            // button3
+            // button3 — Speel playlist
             // 
             button3.Image = Properties.Resources.play_icon;
             button3.Location = new Point(3, 3);
             button3.Name = "button3";
             button3.Size = new Size(60, 60);
             button3.TabIndex = 3;
+            button3.Click += playPlaylistButton_Click;
             // 
-            // button2
+            // button2 — Vorig nummer (playlist)
             // 
-            button2.Image = Properties.Resources.pause_icon;
+            button2.Image = null;
+            button2.Text = "Vorige";
             button2.Location = new Point(69, 3);
             button2.Name = "button2";
             button2.Size = new Size(60, 60);
             button2.TabIndex = 3;
+            button2.Click += previousButton_Click;
             // 
-            // button1
+            // button1 — Volgend nummer (playlist)
             // 
-            button1.Image = Properties.Resources.stop_icon;
+            button1.Image = null;
+            button1.Text = "Volgende";
             button1.Location = new Point(135, 3);
             button1.Name = "button1";
             button1.Size = new Size(60, 60);
             button1.TabIndex = 3;
+            button1.Click += nextButton_Click;
             // 
             // FriendPannel
             // 
@@ -548,7 +564,7 @@ namespace SpotifyWindowsForm
             flowLayoutPanel11.Size = new Size(768, 456);
             flowLayoutPanel11.TabIndex = 1;
             // 
-            // flowLayoutPanel12
+            // flowLayoutPanel12 — Album player balk (play, vorige, volgende)
             // 
             flowLayoutPanel12.Controls.Add(button6);
             flowLayoutPanel12.Controls.Add(button7);
@@ -558,29 +574,34 @@ namespace SpotifyWindowsForm
             flowLayoutPanel12.Size = new Size(768, 61);
             flowLayoutPanel12.TabIndex = 0;
             // 
-            // button6
+            // button6 — Speel album
             // 
             button6.Image = Properties.Resources.play_icon;
             button6.Location = new Point(3, 3);
             button6.Name = "button6";
             button6.Size = new Size(60, 60);
             button6.TabIndex = 4;
+            button6.Click += playAlbumButton_Click;
             // 
-            // button7
+            // button7 — Vorig nummer (album)
             // 
-            button7.Image = Properties.Resources.pause_icon;
+            button7.Image = null;
+            button7.Text = "Vorige";
             button7.Location = new Point(69, 3);
             button7.Name = "button7";
             button7.Size = new Size(60, 60);
             button7.TabIndex = 5;
+            button7.Click += previousAlbumButton_Click;
             // 
-            // button8
+            // button8 — Volgend nummer (album)
             // 
-            button8.Image = Properties.Resources.stop_icon;
+            button8.Image = null;
+            button8.Text = "Volgende";
             button8.Location = new Point(135, 3);
             button8.Name = "button8";
             button8.Size = new Size(60, 60);
             button8.TabIndex = 6;
+            button8.Click += nextAlbumButton_Click;
             // 
             // NummersPannel
             // 
@@ -891,6 +912,7 @@ namespace SpotifyWindowsForm
         private Button playButton;
         private Button pauseButton;
         private Button stopButton;
+        private Button repeatButton;
 
         private Panel playlistCard1;
         private Panel playlistCard2;

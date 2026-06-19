@@ -8,65 +8,82 @@ namespace SpotifyWindowsForm.Models
         private WaveOutEvent? outputDevice;
         private AudioFileReader? audioFile;
 
+        private IPlayable? currentCollection;
+
+        public Action<IPlayable>? OnAutoAdvance { get; set; }
+
         public void Play(IPlayable playable)
         {
-            if (playable == null)
-            {
-                Console.WriteLine("Geen afspeelbaar object geselecteerd");
-                return;
-            }
-
             Song song = playable.GetCurrentSong();
+            if (song == null) return;
 
-            if (song == null)
-            {
-                Console.WriteLine("Geen nummer gevonden");
-                return;
-            }
+            currentCollection = playable;
 
-            if (outputDevice == null)
-            {
-                outputDevice = new WaveOutEvent();
-                outputDevice.PlaybackStopped += OnPlaybackStopped;
-            }
+            Cleanup();
 
-            if (audioFile == null)
-            {
-                audioFile = new AudioFileReader(song.FilePath);
-                outputDevice.Init(audioFile);
-            }
+            outputDevice = new WaveOutEvent();
+            audioFile = new AudioFileReader(song.FilePath);
 
+            outputDevice.Init(audioFile);
+            outputDevice.PlaybackStopped += OnPlaybackStopped;
             outputDevice.Play();
         }
 
         public void Pause()
         {
-            if (outputDevice == null)
-            {
-                Console.WriteLine("Geen nummer geselecteerd");
-                return;
-            }
-
-            outputDevice.Pause();
+            outputDevice?.Pause();
         }
 
         public void Stop()
         {
-            outputDevice?.Stop();
+            Cleanup();
         }
 
         public void Restart()
         {
             if (audioFile != null)
-            {
                 audioFile.Position = 0;
+        }
+
+        public void Next()
+        {
+            if (currentCollection is MusicCollection mc)
+            {
+                if (mc.MoveNext())
+                    Play(mc);
             }
         }
 
-        private void OnPlaybackStopped(object sender, StoppedEventArgs args)
+        public void Previous()
         {
-            outputDevice?.Dispose();
-            outputDevice = null;
+            if (currentCollection is MusicCollection mc)
+            {
+                if (mc.MovePrevious())
+                    Play(mc);
+            }
+        }
+
+        private void OnPlaybackStopped(object? sender, StoppedEventArgs e)
+        {
+            Cleanup();
+
+            if (currentCollection is MusicCollection mc)
+            {
+                if (mc.MoveNext())
+                {
+                    OnAutoAdvance?.Invoke(mc);
+                }
+            }
+        }
+
+        private void Cleanup()
+        {
+            if (outputDevice != null)
+            {
+                outputDevice.PlaybackStopped -= OnPlaybackStopped;
+                outputDevice.Dispose();
+                outputDevice = null;
+            }
 
             audioFile?.Dispose();
             audioFile = null;

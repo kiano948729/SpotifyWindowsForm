@@ -34,11 +34,6 @@ namespace SpotifyWindowsForm
             SeedTestData();
             ToggleInfo();
             HomePannel.Visible = true;
-            //string users = string.Join(
-            //    Environment.NewLine,
-            //    UserStore.Users.Select(u => u.Username));
-
-            //MessageBox.Show(users);
         }
 
         private void SeedTestData()
@@ -194,31 +189,18 @@ namespace SpotifyWindowsForm
             listBox1.DisplayMember = "Sender.Username";
 
         }
+        private void AccountButton_Click(object sender, EventArgs e)
+        {
+            ToggleInfo();
+            Accountpannel.Visible = true;
+        }
+
         private void changeUserButton_Click(object sender, EventArgs e)
         {
             ToggleInfo();
             ChangeUserPannel.Visible = true;
-            authenticationService LoginTest = new authenticationService();
-            LoginTest.AuthenticationService("name", "password");
-            // hier moet nog een formulier bij komen om username+password door te sturen naar auth.service
-
-        }
-        private void ToggleInfo()
-        {
-            HomePannel.Visible = false;
-            PlaylistPannel.Visible = false;
-            FriendPannel.Visible = false;
-            ArtistPannel.Visible = false;
-            AlbumPannel.Visible = false;
-            NummersPannel.Visible = false;
-            VerzoekenPannel.Visible = false;
-            ChangeUserPannel.Visible = false;
         }
 
-        private void lstUsers_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void MainMenuForm_Load(object sender, EventArgs e)
         {
@@ -253,11 +235,25 @@ namespace SpotifyWindowsForm
             {
                 MessageBox.Show("Ongeldige gebruikersnaam of wachtwoord.");
             }
+            Accountbutton.Text = LoginService.CurrentUser?.Username;
         }
         private void uitloggen_Click(object sender, EventArgs e)
         {
             LoginService.Logout();
             MessageBox.Show("Uitgelogd.");
+            Accountbutton.Text = "Account";
+        }
+        private void ToggleInfo()
+        {
+            HomePannel.Visible = false;
+            PlaylistPannel.Visible = false;
+            FriendPannel.Visible = false;
+            ArtistPannel.Visible = false;
+            AlbumPannel.Visible = false;
+            NummersPannel.Visible = false;
+            VerzoekenPannel.Visible = false;
+            ChangeUserPannel.Visible = false;
+            Accountpannel.Visible = false;
         }
     }
 }

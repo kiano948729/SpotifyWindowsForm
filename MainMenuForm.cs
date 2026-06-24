@@ -51,6 +51,27 @@ namespace SpotifyWindowsForm
             testAlbum.AddSong(new Song("Throne", "Bring Me The Horizon", "Metal", "Assets/music/Bring-Me-The-Horizon-Throne.mp3"));
             testAlbum.AddSong(new Song("Reaction", "Onbekend", "Electronic", "Assets/music/Reaction.mp3"));
         }
+        private void PopulatePlaylist(List<Playlist> playlists)
+        {
+            flowLayoutPanel7.Controls.Clear();
+            foreach (Playlist playlist in playlists)
+            {
+                foreach (Song song in playlist.Songs)
+                {
+                    Button btn = CreateStyledButton($"{song.Title} - {song.Artist}", 320, 40);
+                    btn.Tag = song;
+                    btn.Click += (s, e) =>
+                    {
+                        Song selected = (Song)((Button)s).Tag;
+                        Playlist tempPlaylist = new Playlist(selected.Title);
+                        tempPlaylist.AddSong(selected);
+                        activeCollection = tempPlaylist;
+                        player.Play(tempPlaylist);
+                    };
+                    flowLayoutPanel7.Controls.Add(btn);
+                }
+            }
+        }
 
         private void PopulateArtists(List<Artist> artists)
         {
@@ -312,6 +333,7 @@ namespace SpotifyWindowsForm
         {
             ToggleInfo();
             PlaylistPannel.Visible = true;
+            PopulatePlaylist(MusicStore.Playlists);
         }
 
         private void friendsButton_Click(object sender, EventArgs e)

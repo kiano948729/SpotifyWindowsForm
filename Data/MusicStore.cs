@@ -8,12 +8,20 @@ namespace SpotifyWindowsForm.Data
         public static List<Album> Albums = new List<Album>();
         public static List<Artist> Artists = new List<Artist>();
         public static List<Song> Songs = new List<Song>();
+        public static List<Playlist> Playlists = new List<Playlist>();
 
         static MusicStore()
         {
             SeedAlbums();
             SeedArtists();
             SeedSongs();
+            SeedPLaylist();
+        }
+
+        private static void SeedPLaylist()
+        {
+            Playlist testPlaylist = new Playlist("Test Playlist");
+            testPlaylist.AddSong(new Song("Fantaisie Impromptu", "Frederic Chopin", "Classical", "Assets/music/fantaisie-impromptu.mp3"));
         }
 
         private static void SeedAlbums()
@@ -56,6 +64,10 @@ namespace SpotifyWindowsForm.Data
             foreach (Album album in Albums)
             {
                 Songs.AddRange(album.Songs);
+            }
+            foreach(Playlist playlist in Playlists)
+            {
+                Songs.AddRange(playlist.Songs);
             }
         }
     }

@@ -75,6 +75,7 @@ namespace SpotifyWindowsForm
             flowLayoutPanel10 = new FlowLayoutPanel();
             label3 = new Label();
             flowLayoutPanel8 = new FlowLayoutPanel();
+            ArtistDetailPanel = new FlowLayoutPanel();
             AlbumPannel = new FlowLayoutPanel();
             flowLayoutPanel9 = new FlowLayoutPanel();
             label5 = new Label();
@@ -348,7 +349,6 @@ namespace SpotifyWindowsForm
             HomePannel.Controls.Add(flowLayoutPanel2);
             HomePannel.Controls.Add(playlistLabel);
             HomePannel.Controls.Add(flowLayoutPanel3);
-            HomePannel.Controls.Add(flowLayoutPanel4);
             HomePannel.Location = new Point(226, 0);
             HomePannel.Name = "HomePannel";
             HomePannel.Size = new Size(771, 600);
@@ -372,15 +372,17 @@ namespace SpotifyWindowsForm
             flowLayoutPanel3.Size = new Size(533, 275);
             flowLayoutPanel3.TabIndex = 6;
             // 
-            // flowLayoutPanel4
+            // flowLayoutPanel4 (vaste afspeelbalk, altijd zichtbaar op elke pagina)
             // 
             flowLayoutPanel4.Controls.Add(playButton);
             flowLayoutPanel4.Controls.Add(pauseButton);
             flowLayoutPanel4.Controls.Add(stopButton);
             flowLayoutPanel4.Controls.Add(repeatButton);
-            flowLayoutPanel4.Location = new Point(3, 483);
+            flowLayoutPanel4.Dock = DockStyle.Bottom;
+            flowLayoutPanel4.BackColor = Color.FromArgb(24, 24, 24);
+            flowLayoutPanel4.Padding = new Padding(10);
             flowLayoutPanel4.Name = "flowLayoutPanel4";
-            flowLayoutPanel4.Size = new Size(768, 117);
+            flowLayoutPanel4.Size = new Size(1000, 90);
             flowLayoutPanel4.TabIndex = 7;
             // 
             // PlaylistPannel
@@ -543,6 +545,17 @@ namespace SpotifyWindowsForm
             flowLayoutPanel8.Name = "flowLayoutPanel8";
             flowLayoutPanel8.Size = new Size(771, 499);
             flowLayoutPanel8.TabIndex = 1;
+            // 
+            // ArtistDetailPanel
+            // 
+            ArtistDetailPanel.FlowDirection = FlowDirection.TopDown;
+            ArtistDetailPanel.WrapContents = false;
+            ArtistDetailPanel.Location = new Point(3, 89);
+            ArtistDetailPanel.Name = "ArtistDetailPanel";
+            ArtistDetailPanel.Size = new Size(771, 499);
+            ArtistDetailPanel.TabIndex = 2;
+            ArtistDetailPanel.Visible = false;
+            ArtistPannel.Controls.Add(ArtistDetailPanel);
             // 
             // AlbumPannel
             // 
@@ -884,6 +897,7 @@ namespace SpotifyWindowsForm
             Controls.Add(PlaylistPannel);
             Controls.Add(HomePannel);
             Controls.Add(sidebar);
+            Controls.Add(flowLayoutPanel4);
             Name = "MainMenuForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Spotify Clone";
@@ -978,6 +992,7 @@ namespace SpotifyWindowsForm
         private FlowLayoutPanel flowLayoutPanel10;
         private Label label3;
         private FlowLayoutPanel flowLayoutPanel8;
+        private FlowLayoutPanel ArtistDetailPanel;
         private FlowLayoutPanel AlbumPannel;
         private FlowLayoutPanel flowLayoutPanel9;
         private Label label5;

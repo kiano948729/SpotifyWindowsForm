@@ -181,13 +181,18 @@ namespace SpotifyWindowsForm
         {
             ToggleInfo();
             VerzoekenPannel.Visible = true;
-            User currentUser = UserStore.Users.First();
+            User? currentUser = LoginService.CurrentUser;
+
+            if (currentUser == null)
+            {
+                MessageBox.Show("Geen gebruiker ingelogd.");
+                return;
+            }
 
             listBox1.DataSource =
                 AppData.FriendService.GetRequestsForUser(currentUser);
 
-            listBox1.DisplayMember = "Sender.Username";
-
+            listBox1.DisplayMember = "SenderName";
         }
         private void AccountButton_Click(object sender, EventArgs e)
         {
@@ -214,11 +219,27 @@ namespace SpotifyWindowsForm
 
             if (selectedUser == null) return;
 
-            User currentUser = UserStore.Users.First();
+            User? currentUser = LoginService.CurrentUser;
+
+            if (currentUser == null)
+            {
+                MessageBox.Show("Geen gebruiker ingelogd.");
+                return;
+            }
 
             AppData.FriendService.SendRequest(currentUser, selectedUser);
 
             MessageBox.Show($"Request gestuurd naar {selectedUser.Username}");
+        }
+        private void verzoekAccepteren_Click(object sender, EventArgs e)
+        {
+            FriendRequest request = (FriendRequest)listBox1.SelectedItem;
+
+            if (request == null)
+                return;
+
+            AppData.FriendService.AcceptRequest(request);
+            MessageBox.Show("Vriendschapsverzoek geaccepteerd.");
         }
 
         private void inloggen_Click(object sender, EventArgs e)
@@ -255,5 +276,7 @@ namespace SpotifyWindowsForm
             ChangeUserPannel.Visible = false;
             Accountpannel.Visible = false;
         }
+
+
     }
 }

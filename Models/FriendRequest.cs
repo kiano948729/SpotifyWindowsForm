@@ -11,6 +11,7 @@ namespace SpotifyWindowsForm.Models
         public User Sender { get; set; }
         public User Receiver { get; set; }
 
+        public string SenderName => Sender.Username;
 
         public FriendRequest(User sender, User receiver)
         {

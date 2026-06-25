@@ -96,7 +96,7 @@ namespace SpotifyWindowsForm
             label6 = new Label();
             flowLayoutPanel15 = new FlowLayoutPanel();
             listBox1 = new ListBox();
-            button12 = new Button();
+            verzoekAccepteren = new Button();
             button13 = new Button();
             ChangeUserPannel = new FlowLayoutPanel();
             flowLayoutPanel16 = new FlowLayoutPanel();
@@ -716,7 +716,7 @@ namespace SpotifyWindowsForm
             // flowLayoutPanel15
             // 
             flowLayoutPanel15.Controls.Add(listBox1);
-            flowLayoutPanel15.Controls.Add(button12);
+            flowLayoutPanel15.Controls.Add(verzoekAccepteren);
             flowLayoutPanel15.Controls.Add(button13);
             flowLayoutPanel15.Location = new Point(3, 89);
             flowLayoutPanel15.Name = "flowLayoutPanel15";
@@ -732,14 +732,15 @@ namespace SpotifyWindowsForm
             listBox1.Size = new Size(780, 404);
             listBox1.TabIndex = 7;
             // 
-            // button12
+            // verzoekAccepteren
             // 
-            button12.Location = new Point(3, 413);
-            button12.Name = "button12";
-            button12.Size = new Size(112, 34);
-            button12.TabIndex = 0;
-            button12.Text = "accepteren";
-            button12.UseVisualStyleBackColor = true;
+            verzoekAccepteren.Location = new Point(3, 413);
+            verzoekAccepteren.Name = "verzoekAccepteren";
+            verzoekAccepteren.Size = new Size(112, 34);
+            verzoekAccepteren.TabIndex = 0;
+            verzoekAccepteren.Text = "accepteren";
+            verzoekAccepteren.UseVisualStyleBackColor = true;
+            verzoekAccepteren.Click += verzoekAccepteren_Click;
             // 
             // button13
             // 
@@ -998,7 +999,7 @@ namespace SpotifyWindowsForm
         private FlowLayoutPanel flowLayoutPanel14;
         private Label label6;
         private FlowLayoutPanel flowLayoutPanel15;
-        private Button button12;
+        private Button verzoekAccepteren;
         private Button button13;
         private FlowLayoutPanel ChangeUserPannel;
         private FlowLayoutPanel flowLayoutPanel16;

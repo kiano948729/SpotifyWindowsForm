@@ -14,13 +14,17 @@ namespace SpotifyWindowsForm.Services
         public void SendRequest(User sender, User receiver)
         {
             requests.Add(new FriendRequest(sender, receiver));
+
+            MessageBox.Show($"Aantal requests: {requests.Count}");
         }
 
         public List<FriendRequest> GetRequestsForUser(User user)
         {
+            MessageBox.Show($"Aantal requests totaal: {requests.Count}");
             return requests
-                .Where(r => r.Receiver == user)
+                .Where(r => r.Receiver.Username == user.Username)
                 .ToList();
+            
         }
 
         public void AcceptRequest(FriendRequest request)
@@ -32,6 +36,10 @@ namespace SpotifyWindowsForm.Services
         }
 
         public void RejectRequest(FriendRequest request)
+        {
+            requests.Remove(request);
+        }
+        public void RemoveRequest(FriendRequest request)
         {
             requests.Remove(request);
         }

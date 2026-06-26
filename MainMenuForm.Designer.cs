@@ -253,7 +253,7 @@ namespace SpotifyWindowsForm
             // playButton
             // 
             playButton.Image = Properties.Resources.play_icon;
-            playButton.Location = new Point(3, 3);
+            playButton.Location = new Point(13, 13);
             playButton.Name = "playButton";
             playButton.Size = new Size(60, 60);
             playButton.TabIndex = 0;
@@ -262,7 +262,7 @@ namespace SpotifyWindowsForm
             // pauseButton
             // 
             pauseButton.Image = Properties.Resources.pause_icon;
-            pauseButton.Location = new Point(69, 3);
+            pauseButton.Location = new Point(79, 13);
             pauseButton.Name = "pauseButton";
             pauseButton.Size = new Size(60, 60);
             pauseButton.TabIndex = 1;
@@ -271,7 +271,7 @@ namespace SpotifyWindowsForm
             // stopButton
             // 
             stopButton.Image = Properties.Resources.stop_icon;
-            stopButton.Location = new Point(135, 3);
+            stopButton.Location = new Point(145, 13);
             stopButton.Name = "stopButton";
             stopButton.Size = new Size(60, 60);
             stopButton.TabIndex = 2;
@@ -279,7 +279,7 @@ namespace SpotifyWindowsForm
             // 
             // repeatButton
             // 
-            repeatButton.Location = new Point(201, 3);
+            repeatButton.Location = new Point(211, 13);
             repeatButton.Name = "repeatButton";
             repeatButton.Size = new Size(70, 60);
             repeatButton.TabIndex = 3;
@@ -293,7 +293,7 @@ namespace SpotifyWindowsForm
             titleLabel.ForeColor = Color.White;
             titleLabel.Location = new Point(3, 0);
             titleLabel.Name = "titleLabel";
-            titleLabel.Size = new Size(388, 65);
+            titleLabel.Size = new Size(264, 45);
             titleLabel.TabIndex = 1;
             titleLabel.Text = "Spotify Clone";
             // 
@@ -304,7 +304,7 @@ namespace SpotifyWindowsForm
             playlistLabel.ForeColor = Color.White;
             playlistLabel.Location = new Point(3, 156);
             playlistLabel.Name = "playlistLabel";
-            playlistLabel.Size = new Size(293, 43);
+            playlistLabel.Size = new Size(196, 29);
             playlistLabel.TabIndex = 2;
             playlistLabel.Text = "Recently Played";
             // 
@@ -367,21 +367,22 @@ namespace SpotifyWindowsForm
             // 
             flowLayoutPanel3.Controls.Add(playlistCard1);
             flowLayoutPanel3.Controls.Add(playlistCard2);
-            flowLayoutPanel3.Location = new Point(3, 202);
+            flowLayoutPanel3.Location = new Point(205, 159);
             flowLayoutPanel3.Name = "flowLayoutPanel3";
             flowLayoutPanel3.Size = new Size(533, 275);
             flowLayoutPanel3.TabIndex = 6;
             // 
-            // flowLayoutPanel4 (vaste afspeelbalk, altijd zichtbaar op elke pagina)
+            // flowLayoutPanel4
             // 
+            flowLayoutPanel4.BackColor = Color.FromArgb(24, 24, 24);
             flowLayoutPanel4.Controls.Add(playButton);
             flowLayoutPanel4.Controls.Add(pauseButton);
             flowLayoutPanel4.Controls.Add(stopButton);
             flowLayoutPanel4.Controls.Add(repeatButton);
             flowLayoutPanel4.Dock = DockStyle.Bottom;
-            flowLayoutPanel4.BackColor = Color.FromArgb(24, 24, 24);
-            flowLayoutPanel4.Padding = new Padding(10);
+            flowLayoutPanel4.Location = new Point(0, 510);
             flowLayoutPanel4.Name = "flowLayoutPanel4";
+            flowLayoutPanel4.Padding = new Padding(10);
             flowLayoutPanel4.Size = new Size(1000, 90);
             flowLayoutPanel4.TabIndex = 7;
             // 
@@ -409,7 +410,7 @@ namespace SpotifyWindowsForm
             label1.ForeColor = Color.White;
             label1.Location = new Point(3, 0);
             label1.Name = "label1";
-            label1.Size = new Size(74, 25);
+            label1.Size = new Size(49, 15);
             label1.TabIndex = 0;
             label1.Text = "Playlists";
             // 
@@ -480,7 +481,7 @@ namespace SpotifyWindowsForm
             label2.ForeColor = Color.White;
             label2.Location = new Point(3, 0);
             label2.Name = "label2";
-            label2.Size = new Size(69, 25);
+            label2.Size = new Size(45, 15);
             label2.TabIndex = 0;
             label2.Text = "Friends";
             // 
@@ -496,7 +497,7 @@ namespace SpotifyWindowsForm
             // lstUsers
             // 
             lstUsers.FormattingEnabled = true;
-            lstUsers.ItemHeight = 25;
+            lstUsers.ItemHeight = 15;
             lstUsers.Location = new Point(3, 3);
             lstUsers.Name = "lstUsers";
             lstUsers.Size = new Size(780, 304);
@@ -516,6 +517,7 @@ namespace SpotifyWindowsForm
             // 
             ArtistPannel.Controls.Add(flowLayoutPanel10);
             ArtistPannel.Controls.Add(flowLayoutPanel8);
+            ArtistPannel.Controls.Add(ArtistDetailPanel);
             ArtistPannel.Location = new Point(223, 0);
             ArtistPannel.Name = "ArtistPannel";
             ArtistPannel.Size = new Size(774, 597);
@@ -535,7 +537,7 @@ namespace SpotifyWindowsForm
             label3.ForeColor = Color.White;
             label3.Location = new Point(3, 0);
             label3.Name = "label3";
-            label3.Size = new Size(62, 25);
+            label3.Size = new Size(40, 15);
             label3.TabIndex = 0;
             label3.Text = "Artists";
             // 
@@ -549,13 +551,12 @@ namespace SpotifyWindowsForm
             // ArtistDetailPanel
             // 
             ArtistDetailPanel.FlowDirection = FlowDirection.TopDown;
-            ArtistDetailPanel.WrapContents = false;
-            ArtistDetailPanel.Location = new Point(3, 89);
+            ArtistDetailPanel.Location = new Point(3, 594);
             ArtistDetailPanel.Name = "ArtistDetailPanel";
             ArtistDetailPanel.Size = new Size(771, 499);
             ArtistDetailPanel.TabIndex = 2;
             ArtistDetailPanel.Visible = false;
-            ArtistPannel.Controls.Add(ArtistDetailPanel);
+            ArtistDetailPanel.WrapContents = false;
             // 
             // AlbumPannel
             // 
@@ -582,7 +583,7 @@ namespace SpotifyWindowsForm
             label5.ForeColor = Color.White;
             label5.Location = new Point(3, 0);
             label5.Name = "label5";
-            label5.Size = new Size(73, 25);
+            label5.Size = new Size(48, 15);
             label5.TabIndex = 0;
             label5.Text = "Albums";
             // 
@@ -654,7 +655,7 @@ namespace SpotifyWindowsForm
             label4.ForeColor = Color.White;
             label4.Location = new Point(3, 0);
             label4.Name = "label4";
-            label4.Size = new Size(90, 25);
+            label4.Size = new Size(60, 15);
             label4.TabIndex = 0;
             label4.Text = "Nummers";
             // 
@@ -722,7 +723,7 @@ namespace SpotifyWindowsForm
             label6.ForeColor = Color.White;
             label6.Location = new Point(3, 0);
             label6.Name = "label6";
-            label6.Size = new Size(203, 25);
+            label6.Size = new Size(135, 15);
             label6.TabIndex = 0;
             label6.Text = "Vriendschaps-verzoeken";
             // 
@@ -739,15 +740,15 @@ namespace SpotifyWindowsForm
             // listBox1
             // 
             listBox1.FormattingEnabled = true;
-            listBox1.ItemHeight = 25;
+            listBox1.ItemHeight = 15;
             listBox1.Location = new Point(3, 3);
             listBox1.Name = "listBox1";
-            listBox1.Size = new Size(780, 404);
+            listBox1.Size = new Size(780, 394);
             listBox1.TabIndex = 7;
             // 
             // button12
             // 
-            button12.Location = new Point(3, 413);
+            button12.Location = new Point(3, 403);
             button12.Name = "button12";
             button12.Size = new Size(112, 34);
             button12.TabIndex = 0;
@@ -756,7 +757,7 @@ namespace SpotifyWindowsForm
             // 
             // button13
             // 
-            button13.Location = new Point(121, 413);
+            button13.Location = new Point(121, 403);
             button13.Name = "button13";
             button13.Size = new Size(112, 34);
             button13.TabIndex = 1;
@@ -785,7 +786,7 @@ namespace SpotifyWindowsForm
             label7.ForeColor = Color.White;
             label7.Location = new Point(3, 0);
             label7.Name = "label7";
-            label7.Size = new Size(194, 25);
+            label7.Size = new Size(128, 15);
             label7.TabIndex = 0;
             label7.Text = "verander van gebruiker";
             // 
@@ -795,37 +796,37 @@ namespace SpotifyWindowsForm
             label8.ForeColor = Color.White;
             label8.Location = new Point(3, 0);
             label8.Name = "label8";
-            label8.Size = new Size(177, 25);
+            label8.Size = new Size(117, 15);
             label8.TabIndex = 11;
             label8.Text = "log in met gebruiker:";
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(3, 28);
+            textBox1.Location = new Point(3, 18);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(771, 31);
+            textBox1.Size = new Size(771, 23);
             textBox1.TabIndex = 9;
             // 
             // wachtwoordlabel
             // 
             wachtwoordlabel.AutoSize = true;
             wachtwoordlabel.ForeColor = Color.White;
-            wachtwoordlabel.Location = new Point(3, 62);
+            wachtwoordlabel.Location = new Point(3, 44);
             wachtwoordlabel.Name = "wachtwoordlabel";
-            wachtwoordlabel.Size = new Size(114, 25);
+            wachtwoordlabel.Size = new Size(76, 15);
             wachtwoordlabel.TabIndex = 12;
             wachtwoordlabel.Text = "wachtwoord:";
             // 
             // textBox2
             // 
-            textBox2.Location = new Point(3, 90);
+            textBox2.Location = new Point(3, 62);
             textBox2.Name = "textBox2";
-            textBox2.Size = new Size(780, 31);
+            textBox2.Size = new Size(780, 23);
             textBox2.TabIndex = 10;
             // 
             // inloggen
             // 
-            inloggen.Location = new Point(3, 127);
+            inloggen.Location = new Point(3, 91);
             inloggen.Name = "inloggen";
             inloggen.Size = new Size(226, 34);
             inloggen.TabIndex = 5;
@@ -835,7 +836,7 @@ namespace SpotifyWindowsForm
             // 
             // uitloggen
             // 
-            uitloggen.Location = new Point(235, 127);
+            uitloggen.Location = new Point(235, 91);
             uitloggen.Name = "uitloggen";
             uitloggen.Size = new Size(226, 34);
             uitloggen.TabIndex = 8;
@@ -866,7 +867,7 @@ namespace SpotifyWindowsForm
             label9.ForeColor = Color.White;
             label9.Location = new Point(3, 0);
             label9.Name = "label9";
-            label9.Size = new Size(134, 25);
+            label9.Size = new Size(88, 15);
             label9.TabIndex = 0;
             label9.Text = "in of uit loggen";
             // 

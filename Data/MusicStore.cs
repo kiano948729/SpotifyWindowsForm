@@ -22,6 +22,8 @@ namespace SpotifyWindowsForm.Data
         {
             Playlist testPlaylist = new Playlist("Test Playlist");
             testPlaylist.AddSong(new Song("Fantaisie Impromptu", "Frederic Chopin", "Classical", "Assets/music/fantaisie-impromptu.mp3"));
+
+            Playlists.Add(testPlaylist);
         }
 
         private static void SeedAlbums()
@@ -65,7 +67,7 @@ namespace SpotifyWindowsForm.Data
             {
                 Songs.AddRange(album.Songs);
             }
-            foreach(Playlist playlist in Playlists)
+            foreach (Playlist playlist in Playlists)
             {
                 Songs.AddRange(playlist.Songs);
             }

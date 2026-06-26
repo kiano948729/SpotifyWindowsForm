@@ -53,22 +53,35 @@ namespace SpotifyWindowsForm
         }
         private void PopulatePlaylist(List<Playlist> playlists)
         {
-            flowLayoutPanel7.Controls.Clear();
+            PlaylistField.Controls.Clear();
+
+            //ontbrekende/lege data mag geen crash veroorzaken
+            if (playlists == null || playlists.Count == 0)
+            {
+                PlaylistField.Controls.Add(CreateEmptyLabel("Nog geen playlists gevonden."));
+                return;
+            }
+
             foreach (Playlist playlist in playlists)
             {
+                Label nameLabel = new Label();
+                nameLabel.Text = playlist.Name;
+                nameLabel.ForeColor = Color.White;
+                nameLabel.Font = new Font(Font.FontFamily, 11, FontStyle.Bold);
+                nameLabel.AutoSize = true;
+                nameLabel.Margin = new Padding(3, 10, 3, 3);
+                PlaylistField.Controls.Add(nameLabel);
+
+                if (playlist.Songs.Count == 0)
+                {
+                    PlaylistField.Controls.Add(CreateEmptyLabel("Deze playlist is leeg."));
+                    continue;
+                }
+
                 foreach (Song song in playlist.Songs)
                 {
-                    Button btn = CreateStyledButton($"{song.Title} - {song.Artist}", 320, 40);
-                    btn.Tag = song;
-                    btn.Click += (s, e) =>
-                    {
-                        Song selected = (Song)((Button)s).Tag;
-                        Playlist tempPlaylist = new Playlist(selected.Title);
-                        tempPlaylist.AddSong(selected);
-                        activeCollection = tempPlaylist;
-                        player.Play(tempPlaylist);
-                    };
-                    flowLayoutPanel7.Controls.Add(btn);
+                    Panel row = CreateSongRow(song, $"{song.Title} - {song.Artist}", 280);
+                    PlaylistField.Controls.Add(row);
                 }
             }
         }
@@ -80,6 +93,12 @@ namespace SpotifyWindowsForm
 
             flowLayoutPanel8.Visible = true;
             ArtistDetailPanel.Visible = false;
+
+            if (artists == null || artists.Count == 0)
+            {
+                flowLayoutPanel8.Controls.Add(CreateEmptyLabel("Geen artiesten gevonden."));
+                return;
+            }
 
             foreach (Artist artist in artists)
             {
@@ -161,20 +180,14 @@ namespace SpotifyWindowsForm
 
                 foreach (Song song in artist.GetSongs())
                 {
-                    Button songBtn = CreateStyledButton(song.Title, 250, 40);
-                    songBtn.Tag = song;
-                    songBtn.Click += (s, e) =>
-                    {
-                        Song selected = (Song)((Button)s).Tag;
-
-                        Playlist tempPlaylist = new Playlist(selected.Title);
-                        tempPlaylist.AddSong(selected);
-
-                        activeCollection = tempPlaylist;
-                        player.Play(tempPlaylist);
-                    };
-                    ArtistDetailPanel.Controls.Add(songBtn);
+                    Panel row = CreateSongRow(song, song.Title, 200);
+                    ArtistDetailPanel.Controls.Add(row);
                 }
+            }
+
+            if (artist.GetAlbums().Count == 0 && artist.GetSongs().Count == 0)
+            {
+                ArtistDetailPanel.Controls.Add(CreateEmptyLabel("Nog geen albums of nummers bekend van deze artiest."));
             }
 
             flowLayoutPanel8.Visible = false;
@@ -195,9 +208,80 @@ namespace SpotifyWindowsForm
             return btn;
         }
 
+        //rijtje met het nummer + een "+" knop om het nummer aan een playlist toe te voegen
+        private Panel CreateSongRow(Song song, string displayText, int buttonWidth)
+        {
+            FlowLayoutPanel row = new FlowLayoutPanel();
+            row.FlowDirection = FlowDirection.LeftToRight;
+            row.AutoSize = true;
+            row.WrapContents = false;
+            row.Margin = new Padding(0);
+
+            Button songBtn = CreateStyledButton(displayText, buttonWidth, 40);
+            songBtn.Tag = song;
+            songBtn.Click += (s, e) =>
+            {
+                Song selected = (Song)((Button)s).Tag;
+                Playlist tempPlaylist = new Playlist(selected.Title);
+                tempPlaylist.AddSong(selected);
+                activeCollection = tempPlaylist;
+                player.Play(tempPlaylist);
+            };
+            row.Controls.Add(songBtn);
+
+            Button addBtn = CreateStyledButton("+", 40, 40);
+            addBtn.TextAlign = ContentAlignment.MiddleCenter;
+            addBtn.Tag = song;
+            addBtn.Click += (s, e) => ShowAddToPlaylistMenu((Button)s, song);
+            row.Controls.Add(addBtn);
+
+            return row;
+        }
+
+        //toont een klein menu met playlists om het nummer aan toe te voegen
+        private void ShowAddToPlaylistMenu(Button sourceButton, Song song)
+        {
+            if (MusicStore.Playlists == null || MusicStore.Playlists.Count == 0)
+            {
+                MessageBox.Show("Er zijn nog geen playlists om dit nummer aan toe te voegen.");
+                return;
+            }
+
+            ContextMenuStrip menu = new ContextMenuStrip();
+            foreach (Playlist playlist in MusicStore.Playlists)
+            {
+                ToolStripMenuItem item = new ToolStripMenuItem(playlist.Name);
+                item.Click += (s, e) =>
+                {
+                    playlist.AddSong(song);
+                    MessageBox.Show($"{song.Title} toegevoegd aan {playlist.Name}.");
+                };
+                menu.Items.Add(item);
+            }
+
+            menu.Show(sourceButton, new Point(0, sourceButton.Height));
+        }
+
+        //label voor lege/ontbrekende data, zodat een pagina nooit leeg of crashend overkomt
+        private Label CreateEmptyLabel(string text)
+        {
+            Label label = new Label();
+            label.Text = text;
+            label.ForeColor = Color.Gainsboro;
+            label.AutoSize = true;
+            label.Margin = new Padding(3, 10, 3, 10);
+            return label;
+        }
+
         private void PopulateAlbums(List<Album> albums)
         {
             flowLayoutPanel11.Controls.Clear();
+
+            if (albums == null || albums.Count == 0)
+            {
+                flowLayoutPanel11.Controls.Add(CreateEmptyLabel("Geen albums gevonden."));
+                return;
+            }
 
             foreach (Album album in albums)
             {
@@ -219,23 +303,16 @@ namespace SpotifyWindowsForm
         {
             NummersDisplayfield.Controls.Clear();
 
+            if (songs == null || songs.Count == 0)
+            {
+                NummersDisplayfield.Controls.Add(CreateEmptyLabel("Geen nummers gevonden."));
+                return;
+            }
+
             foreach (Song song in songs)
             {
-                Button btn = CreateStyledButton($"{song.Title} - {song.Artist}", 320, 40);
-                btn.Tag = song;
-
-                btn.Click += (s, e) =>
-                {
-                    Song selected = (Song)((Button)s).Tag;
-
-                    Playlist tempPlaylist = new Playlist(selected.Title);
-                    tempPlaylist.AddSong(selected);
-
-                    activeCollection = tempPlaylist;
-                    player.Play(tempPlaylist);
-                };
-
-                NummersDisplayfield.Controls.Add(btn);
+                Panel row = CreateSongRow(song, $"{song.Title} - {song.Artist}", 280);
+                NummersDisplayfield.Controls.Add(row);
             }
         }
 

@@ -1,3 +1,5 @@
+using SpotifyWindowsForm.Models;
+
 namespace SpotifyWindowsForm
 {
     internal static class Program
@@ -8,10 +10,12 @@ namespace SpotifyWindowsForm
         [STAThread]
         static void Main()
         {
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new Form1());
+
+            Client client = new Client();
+            client.Start();
+
+            Application.Run(new MainMenuForm());
         }
     }
 }

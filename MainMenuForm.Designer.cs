@@ -308,7 +308,6 @@ namespace SpotifyWindowsForm
             playlistLabel.Name = "playlistLabel";
             playlistLabel.Size = new Size(196, 29);
             playlistLabel.TabIndex = 2;
-            playlistLabel.Text = "Recently Played";
             // 
             // playlistCard1
             // 

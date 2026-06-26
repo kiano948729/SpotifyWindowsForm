@@ -32,6 +32,7 @@ namespace SpotifyWindowsForm
             playlist = new Playlist("Test Playlist");
             testAlbum = new Album("Test Album", "Album voor testen");
             SeedTestData();
+            PopulateHome();
             ToggleInfo();
             HomePannel.Visible = true;
         }
@@ -50,6 +51,56 @@ namespace SpotifyWindowsForm
             testAlbum.AddSong(new Song("Vivaldi Cello Sonata", "Vivaldi", "Classical", "Assets/music/Vivaldi-Cello-Sonata.mp3"));
             testAlbum.AddSong(new Song("Throne", "Bring Me The Horizon", "Metal", "Assets/music/Bring-Me-The-Horizon-Throne.mp3"));
             testAlbum.AddSong(new Song("Reaction", "Onbekend", "Electronic", "Assets/music/Reaction.mp3"));
+        }
+        private void PopulateHome()
+        {
+            flowLayoutPanel2.Controls.Clear();
+            flowLayoutPanel3.Controls.Clear();
+
+            Label title = new Label();
+            title.Text = $"Welkom {LoginService.CurrentUser?.Username ?? "Gebruiker"}!";
+            title.Font = new Font("Arial", 24, FontStyle.Bold);
+            title.ForeColor = Color.White;
+            title.AutoSize = true;
+
+            Label subtitle = new Label();
+            subtitle.Text = "Overzicht van je muziekbibliotheek";
+            subtitle.ForeColor = Color.Gainsboro;
+            subtitle.AutoSize = true;
+
+            flowLayoutPanel2.Controls.Add(title);
+            flowLayoutPanel2.Controls.Add(subtitle);
+
+            flowLayoutPanel3.Controls.Add(CreateHomeCard("Nummers", MusicStore.Songs.Count.ToString()));
+            flowLayoutPanel3.Controls.Add(CreateHomeCard("Albums", MusicStore.Albums.Count.ToString()));
+            flowLayoutPanel3.Controls.Add(CreateHomeCard("Artiesten", MusicStore.Artists.Count.ToString()));
+            flowLayoutPanel3.Controls.Add(CreateHomeCard("Playlists", MusicStore.Playlists.Count.ToString()));
+        }
+        private Panel CreateHomeCard(string title, string value)
+        {
+            Panel card = new Panel();
+            card.Size = new Size(170, 120);
+            card.BackColor = Color.FromArgb(40, 40, 40);
+            card.Margin = new Padding(10);
+
+            Label lblTitle = new Label();
+            lblTitle.Text = title;
+            lblTitle.ForeColor = Color.White;
+            lblTitle.Font = new Font("Arial", 11, FontStyle.Bold);
+            lblTitle.Location = new Point(10, 10);
+            lblTitle.AutoSize = true;
+
+            Label lblValue = new Label();
+            lblValue.Text = value;
+            lblValue.ForeColor = Color.LimeGreen;
+            lblValue.Font = new Font("Arial", 24, FontStyle.Bold);
+            lblValue.Location = new Point(10, 50);
+            lblValue.AutoSize = true;
+
+            card.Controls.Add(lblTitle);
+            card.Controls.Add(lblValue);
+
+            return card;
         }
         private void PopulatePlaylist(List<Playlist> playlists)
         {
@@ -323,7 +374,7 @@ namespace SpotifyWindowsForm
             if (activeCollection != null)
             {
                 player.Play(activeCollection);
-            }
+            }   
             else
             {
                 activeCollection = playlist;
@@ -403,6 +454,7 @@ namespace SpotifyWindowsForm
         private void homeButton_Click(object sender, EventArgs e)
         {
             ToggleInfo();
+            PopulateHome();
             HomePannel.Visible = true;
         }
 

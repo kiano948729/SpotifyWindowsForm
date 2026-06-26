@@ -475,7 +475,28 @@ namespace SpotifyWindowsForm
             lstUsers.DataSource = UserStore.Users;
             lstUsers.DisplayMember = "Username";
         }
+        private void btnCreatePlaylist_Click(object sender, EventArgs e)
+        {
+            string playlistName = txtPlaylistName.Text.Trim();
 
+            if (string.IsNullOrWhiteSpace(playlistName))
+            {
+                MessageBox.Show("Voer een playlistnaam in.");
+                return;
+            }
+
+            Playlist nieuwePlaylist = new Playlist(playlistName);
+
+            //toevoegen aan de lijst
+            MusicStore.Playlists.Add(nieuwePlaylist);
+
+            PopulatePlaylist(MusicStore.Playlists);
+
+            //textBox leegmaken
+            txtPlaylistName.Clear();
+
+            MessageBox.Show($"Playlist '{playlistName}' is aangemaakt.");
+        }
         private void toevoegen_Click(object sender, EventArgs e)
         {
             User selectedUser = (User)lstUsers.SelectedItem;

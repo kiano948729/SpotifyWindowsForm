@@ -112,6 +112,8 @@ namespace SpotifyWindowsForm
             flowLayoutPanel18 = new FlowLayoutPanel();
             label9 = new Label();
             flowLayoutPanel19 = new FlowLayoutPanel();
+            txtPlaylistName = new TextBox();
+            btnCreatePlaylist = new Button();
             sidebar.SuspendLayout();
             playlistCard1.SuspendLayout();
             playlistCard2.SuspendLayout();
@@ -423,6 +425,8 @@ namespace SpotifyWindowsForm
             // 
             // ButtonBarPlaylistPannel
             // 
+            ButtonBarPlaylistPannel.Controls.Add(txtPlaylistName);
+            ButtonBarPlaylistPannel.Controls.Add(btnCreatePlaylist);
             ButtonBarPlaylistPannel.Controls.Add(button3);
             ButtonBarPlaylistPannel.Controls.Add(button2);
             ButtonBarPlaylistPannel.Controls.Add(button1);
@@ -763,6 +767,17 @@ namespace SpotifyWindowsForm
             button13.TabIndex = 1;
             button13.Text = "weigeren";
             button13.UseVisualStyleBackColor = true;
+            //
+            // button create playlist
+            //
+            txtPlaylistName.Location = new Point(3, 10);
+            txtPlaylistName.Name = "txtPlaylistName";
+            txtPlaylistName.Size = new Size(220, 27);
+
+            btnCreatePlaylist.Location = new Point(235, 10);
+            btnCreatePlaylist.Size = new Size(150, 27);
+            btnCreatePlaylist.Text = "Nieuwe playlist";
+            btnCreatePlaylist.Click += btnCreatePlaylist_Click;
             // 
             // ChangeUserPannel
             // 
@@ -1033,5 +1048,7 @@ namespace SpotifyWindowsForm
         private FlowLayoutPanel flowLayoutPanel18;
         private Label label9;
         private FlowLayoutPanel flowLayoutPanel19;
+        private TextBox txtPlaylistName;
+        private Button btnCreatePlaylist;
     }
 }
